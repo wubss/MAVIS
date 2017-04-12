@@ -1,0 +1,34 @@
+{
+  "name": "purescript-contravariant",
+  "homepage": "https://github.com/purescript/purescript-contravariant",
+  "description": "Contravariant functors for PureScript",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-contravariant.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "test",
+    "bower.json",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-either": "^2.0.0",
+    "purescript-monoid": "^2.0.0",
+    "purescript-tuples": "^3.0.0"
+  },
+  "version": "2.0.0",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.0",
+    "commit": "aff298280ebaa13c7826feda33b79ff6a991419e"
+  },
+  "_source": "https://github.com/mankyKitty/purescript-contravariant.git",
+  "_target": "^2.0.0",
+  "_originalSource": "purescript-contravariant"
+}

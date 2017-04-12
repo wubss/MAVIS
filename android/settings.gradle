@@ -1,0 +1,3 @@
+rootProject.name = 'mavis'
+
+include ':app'

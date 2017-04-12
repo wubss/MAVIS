@@ -1,0 +1,33 @@
+{
+  "name": "purescript-functors",
+  "homepage": "https://github.com/purescript/purescript-functors",
+  "description": "Functor products, coproducts, and composition",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-functors.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "test",
+    "bower.json",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-const": "^2.0.0",
+    "purescript-either": "^2.0.0"
+  },
+  "version": "1.1.0",
+  "_release": "1.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.0",
+    "commit": "0e75bf749d902b5d6062c45f227a4c86f40e71cf"
+  },
+  "_source": "https://github.com/purescript/purescript-functors.git",
+  "_target": "^1.0.0",
+  "_originalSource": "purescript-functors"
+}

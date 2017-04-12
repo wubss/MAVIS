@@ -1,0 +1,20 @@
+{
+  "name": "purescript-eff-functions",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hdgarrood/purescript-eff-functions"
+  },
+  "dependencies": {
+    "purescript-eff": "^2.0.0"
+  },
+  "devDependencies": {
+    "purescript-console": "^2.0.0"
+  }
+}

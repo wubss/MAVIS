@@ -1,0 +1,37 @@
+{
+  "name": "purescript-unfoldable",
+  "homepage": "https://github.com/purescript/purescript-unfoldable",
+  "description": "Unfoldable Functors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-unfoldable.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "test",
+    "bower.json",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-partial": "^1.1.2",
+    "purescript-tuples": "^3.0.0"
+  },
+  "devDependencies": {
+    "purescript-assert": "^2.0.0",
+    "purescript-console": "^2.0.0"
+  },
+  "version": "2.0.0",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.0",
+    "commit": "31f1f132c7edf04606117a901795b2018c96686a"
+  },
+  "_source": "https://github.com/paf31/purescript-unfoldable.git",
+  "_target": "^2.0.0",
+  "_originalSource": "purescript-unfoldable"
+}

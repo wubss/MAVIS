@@ -1,0 +1,42 @@
+{
+  "name": "purescript-reactnative",
+  "description": "Purescript bindings for react-native",
+  "keywords": [
+    "react",
+    "react native"
+  ],
+  "authors": [
+    "Jolse Maginnis <doolse@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/doolse/purescript-reactnative.git"
+  },
+  "dependencies": {
+    "purescript-react": "^2.0.0",
+    "purescript-maybe": "^2.0.1",
+    "purescript-newtype": "^1.1.0",
+    "purescript-integers": "^2.1.0",
+    "purescript-maps": "^2.0.2",
+    "purescript-nullable": "^2.0.0",
+    "purescript-eff-functions": "^2.0.0"
+  },
+  "devDependencies": {
+    "purescript-spec": "^0.10.0"
+  },
+  "homepage": "https://github.com/doolse/purescript-reactnative",
+  "_release": "1062d2073b",
+  "_resolution": {
+    "type": "commit",
+    "commit": "1062d2073bdb9d1e672a16843b3c7a3d2810db90"
+  },
+  "_source": "git://github.com/doolse/purescript-reactnative.git",
+  "_target": "1062d2073bdb9d1e672a16843b3c7a3d2810db90",
+  "_originalSource": "git://github.com/doolse/purescript-reactnative"
+}

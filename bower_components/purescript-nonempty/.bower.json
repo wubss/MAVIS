@@ -1,0 +1,36 @@
+{
+  "name": "purescript-nonempty",
+  "homepage": "https://github.com/purescript/purescript-nonempty",
+  "description": "A generic non-empty data structure",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-nonempty.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "test",
+    "bower.json",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-foldable-traversable": "^2.0.0"
+  },
+  "devDependencies": {
+    "purescript-assert": "^2.0.0",
+    "purescript-console": "^2.0.0"
+  },
+  "version": "3.0.0",
+  "_release": "3.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.0",
+    "commit": "3e8b84e0faa4ac2790b07620d721eb716e135729"
+  },
+  "_source": "https://github.com/paf31/purescript-nonempty.git",
+  "_target": "^3.0.0",
+  "_originalSource": "purescript-nonempty"
+}

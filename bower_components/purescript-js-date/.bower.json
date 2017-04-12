@@ -1,0 +1,39 @@
+{
+  "name": "purescript-js-date",
+  "homepage": "https://github.com/purescript-contrib/purescript-js-date",
+  "description": "PureScript library for native JavaScript `Date` values",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript-contrib/purescript-js-date.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "bower.json",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-datetime": "^2.0.0",
+    "purescript-exceptions": "^2.0.0",
+    "purescript-foreign": "^3.0.0",
+    "purescript-integers": "^2.0.0"
+  },
+  "devDependencies": {
+    "purescript-assert": "^2.0.0",
+    "purescript-console": "^2.0.0",
+    "purescript-globals": "^2.0.0"
+  },
+  "version": "3.0.0",
+  "_release": "3.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.0",
+    "commit": "37b55a705127cd99a8e94ac7401057354873ff36"
+  },
+  "_source": "https://github.com/garyb/purescript-js-date.git",
+  "_target": "^3.0.0",
+  "_originalSource": "purescript-js-date"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "purescript-react",
+  "homepage": "https://github.com/purescript-contrib/purescript-react",
+  "description": "PureScript bindings for react",
+  "main": "",
+  "keywords": [
+    "purescript",
+    "react"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "*",
+    "!src/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript-contrib/purescript-react.git"
+  },
+  "dependencies": {
+    "purescript-eff": "^2.0.0",
+    "purescript-prelude": "^2.1.0",
+    "purescript-unsafe-coerce": "^2.0.0"
+  },
+  "devDependencies": {
+    "purescript-console": "^2.0.0",
+    "purescript-psci-support": "^2.0.0"
+  },
+  "version": "2.0.0",
+  "_release": "2.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.0",
+    "commit": "9b15ee288004e6360968983fe2aee801360a6205"
+  },
+  "_source": "https://github.com/purescript-contrib/purescript-react.git",
+  "_target": "^2.0.0",
+  "_originalSource": "purescript-react"
+}
