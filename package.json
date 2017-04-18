@@ -1,7 +1,7 @@
 {
-	"name": "mavis",
-	"version": "0.0.1",
-	"private": true,
+  "name": "mavis",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
     "postinstall": "bower cache clean && bower install",
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -9,11 +9,13 @@
     "build": "babel src -d src && pulp build --to index.android.js"
   },
   "dependencies": {
+    "@remobile/react-native-sqlite": "^1.0.2",
     "babel-loader": "^6.4.1",
     "react": "15.4.2",
     "react-native": "0.42.0",
     "react-native-audio": "^3.2.2",
     "react-native-camera": "^0.6.0",
+    "react-native-sqlite-storage": "^3.2.2",
     "react-native-vector-icons": "^4.0.0",
     "rimraf": "^2.6.1"
   },

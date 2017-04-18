@@ -2,35 +2,26 @@ module Main where
 
 import Prelude
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Now (NOW, now)
-import Data.DateTime (DateTime, Day)
+import Control.Monad.Eff.Console (log)
+import Control.Monad.Eff.Now (now)
 import Data.DateTime.Instant (toDateTime)
-import Meals.Meals (MealSlot, MealViewData)
-import React (ReactClass, ReactElement, ReactThis, createClass, readState, spec')
+import Dates (latestMonday)
+import React (ReactClass, ReactElement, createClass, spec')
 import ReactNative.API (REGISTER, registerComponent)
 import ReactNative.Components.Navigator (Navigator, navigator', sceneConfig, sceneConfigs, sceneRenderer)
-import ReactNative.Components.Text (text_)
 import Routes (Route(..))
-import Screens.MenuAdmin (render) as MenuAdmin
-import Screens.MealView (render) as MealView
 import Screens.CalendarView (render) as CalendarView
+import Screens.MealView (render) as MealView
+import Screens.MenuAdmin (render) as MenuAdmin
 import Screens.SelectMeal (render) as SelectMeal
-import Dates (latestMonday)
+import Screens.TakePhoto (render) as TakePhoto
 
 routeMapper :: Route -> Navigator Route -> ReactElement
 routeMapper (MenuAdmin weekNo) = MenuAdmin.render weekNo
 routeMapper (MealView args) = MealView.render args
 routeMapper (CalendarView dt) = CalendarView.render dt
-routeMapper (SelectMeal ms) = SelectMeal.render ms
-
--- routeMapper (TakePhoto args) = TakePhoto.view args
-
--- import Routes.RouteMapper (routeMapper)
--- import Routes.Routes (Route(..))
-
--- initialAppState :: forall props state eff. ReactThis props state -> Eff (now :: NOW | eff) DateTime
--- initialAppState _ = (latestMonday <<< toDateTime) <$> now
-
+routeMapper (SelectMeal ms meals) = SelectMeal.render ms meals
+routeMapper (TakePhoto meal) = TakePhoto.render meal
 
 app :: ReactClass Unit
 app = createClass (spec' (\_ -> pure true) render)

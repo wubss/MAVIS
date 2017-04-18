@@ -12,11 +12,6 @@ import Partial.Unsafe (unsafePartial)
 
 addDays :: Int -> DateTime -> DateTime
 addDays n dt = unsafePartial fromJust $ adjust (fromDuration (Days (toNumber n))) dt
---
--- showDate :: DateTime -> String
--- showDate dt = case  formatDateTime "%a %e %b" defDateTimeFormatLocale dt of
---   Left err -> err
---   Right str -> str
 
 unsafeFormatDateTime :: String -> DateTime -> String
 unsafeFormatDateTime fmt dt = unsafePartial $ fromRight $ formatDateTime fmt defDateTimeFormatLocale dt
@@ -34,3 +29,6 @@ nextWeekStart = addDays 7
 
 showDate :: DateTime -> String
 showDate = unsafeFormatDateTime "%a %e %b"
+
+allDays :: Array Weekday
+allDays = [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]

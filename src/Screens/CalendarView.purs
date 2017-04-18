@@ -3,11 +3,12 @@ module Screens.CalendarView where
 import Prelude
 import Data.DateTime (DateTime(..), Weekday(..))
 import Data.Function.Eff (mkEffFn1)
+import Meals.Slots (weekNo)
 import React (ReactElement)
 import ReactNative.Components.Navigator (Navigator)
 import ReactNative.Components.Text (text', text_)
 import ReactNative.Components.View (view_)
-import Routes (Route(..), WeekNo(..), replace, weekNo)
+import Routes (Route(..), replace)
 
 render :: DateTime -> Navigator Route -> ReactElement
 render dt nav = view_ [
