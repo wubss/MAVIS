@@ -1,6 +1,7 @@
 module Meals.Slots where
 
 import Prelude
+import Data.Date (Date)
 import Data.DateTime (DateTime, Weekday)
 import Data.Maybe (Maybe(..))
 import Data.Show (class Show)
@@ -10,7 +11,7 @@ import Meals.Meals (MealTime, MealType)
 newtype WeekNo = WeekNo Int
 derive instance eqWeekNo :: Eq WeekNo
 
-data SlotDate = MenuSlotDate Weekday WeekNo | MealSlotDate DateTime
+data SlotDate = MenuSlotDate Weekday WeekNo | MealSlotDate Date
 derive instance eqSlotDate :: Eq SlotDate
 
 newtype Slot = Slot {date :: SlotDate, mealTime :: MealTime, mealType :: MealType}
@@ -30,6 +31,9 @@ slotDateWeekNo _ = Nothing
 showSlotDate :: SlotDate -> String
 showSlotDate (MenuSlotDate day week) = show day <> "-" <> showWeekNo week
 showSlotDate (MealSlotDate dt) = unsafeFormatDateTime "%Y-%m-%d-" dt
+
+weekNoFromDate :: Date -> WeekNo
+weekNoFromDate dt = weekNo 1
 
 weekNo :: Int -> WeekNo
 weekNo n = WeekNo n

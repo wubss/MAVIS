@@ -1,5 +1,6 @@
 module Screens.TakePhoto (render) where
 
+import Camera (cameraClass)
 import Data.Function.Eff (mkEffFn1)
 import Meals.Meals (Meal(..), setPhotoPath)
 import React (ReactElement, createElement)
@@ -12,4 +13,5 @@ import Routes (Route(..), replace)
 --   where photoTaken {path} = replace nav (MealView args {meal = setPhotoPath path args.meal})
 
 render :: Meal -> Navigator Route -> ReactElement
-render meal nav = text_ "Take photo"
+render meal nav = createElement cameraClass {onPhotoTaken: mkEffFn1 photoTaken} []
+  where photoTaken {path} = replace nav (MealView (setPhotoPath path meal))

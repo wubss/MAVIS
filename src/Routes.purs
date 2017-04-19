@@ -2,16 +2,15 @@ module Routes where
 
 import Prelude
 import Control.Monad.Eff (Eff)
-import Data.DateTime (DateTime(..), Weekday)
-import Dates (unsafeFormatDateTime)
-import Meals.Meals (Meal, MealTime, MealType)
-import Meals.Slots (WeekNo(..), Slot)
+import Data.DateTime (Date)
+import Meals.Meals (Meal)
+import Meals.Slots (Slot, WeekNo)
 import React (ReactState, ReadWrite)
 import ReactNative.Components.Navigator (Navigator)
 
 data Route = MenuAdmin WeekNo
-           | CalendarView DateTime
-           | SelectMeal Slot (Array Meal)
+           | CalendarView Date
+           | SelectMeal Slot
            | MealView Meal
            | TakePhoto Meal
 

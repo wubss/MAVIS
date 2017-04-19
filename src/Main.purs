@@ -2,10 +2,7 @@ module Main where
 
 import Prelude
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (log)
-import Control.Monad.Eff.Now (now)
-import Data.DateTime.Instant (toDateTime)
-import Dates (latestMonday)
+import Dates (currentDate, latestMonday)
 import React (ReactClass, ReactElement, createClass, spec')
 import ReactNative.API (REGISTER, registerComponent)
 import ReactNative.Components.Navigator (Navigator, navigator', sceneConfig, sceneConfigs, sceneRenderer)
@@ -20,14 +17,14 @@ routeMapper :: Route -> Navigator Route -> ReactElement
 routeMapper (MenuAdmin weekNo) = MenuAdmin.render weekNo
 routeMapper (MealView args) = MealView.render args
 routeMapper (CalendarView dt) = CalendarView.render dt
-routeMapper (SelectMeal ms meals) = SelectMeal.render ms meals
+routeMapper (SelectMeal ms) = SelectMeal.render ms
 routeMapper (TakePhoto meal) = TakePhoto.render meal
 
 app :: ReactClass Unit
 app = createClass (spec' (\_ -> pure true) render)
   where
     render ctx = do
-      dt <- (latestMonday <<< toDateTime) <$> now
+      dt <- currentDate
       pure $ navigator' _ { configureScene = sceneConfig sceneConfigs.fadeAndroid } (CalendarView dt) (sceneRenderer routeMapper)
 
 main :: forall eff. Eff (register :: REGISTER | eff) Unit

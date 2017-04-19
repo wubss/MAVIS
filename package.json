@@ -14,7 +14,7 @@
     "react": "15.4.2",
     "react-native": "0.42.0",
     "react-native-audio": "^3.2.2",
-    "react-native-camera": "^0.6.0",
+    "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-sqlite-storage": "^3.2.2",
     "react-native-vector-icons": "^4.0.0",
     "rimraf": "^2.6.1"

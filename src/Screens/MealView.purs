@@ -2,20 +2,21 @@ module Screens.MealView where
 
 import Prelude
 import Alerts.Alerts (alertWithButtons)
-import AsyncStorage (multiGet, setItem)
 import Checkbox (checkbox)
 import Components.Container (container)
-import Components.MealDetails (mealPhoto)
+import Components.MealDetails (editStyles, mealPhoto)
 import Components.TextField (textField)
-import Components.Title (title)
+import Components.Header (header)
 import Control.Monad.Eff (Eff)
 import Data.Argonaut (encodeJson)
-import Data.Database (SqlValue(..), executeSql, executeSql')
+import Data.Database (SqlValue(..), executeSql, executeSql', insertMeal, upsertMeal)
+import Data.Date (Date)
 import Data.DateTime (DateTime)
 import Data.Either (Either(..))
 import Data.Function.Eff (mkEffFn1)
-import Data.Maybe (Maybe(..))
+import Data.Maybe (Maybe(..), fromJust)
 import Meals.Meals (Meal(..), MealType(..), allAllergens, hasAllergen, mealId, mealValid, setDescription, setName, unMeal, updateAllergen)
+import Partial.Unsafe (unsafePartial)
 import React (ReactClass, ReactElement, ReactState, ReactThis, Read, Write, createClass, createElement, readState, spec, transformState)
 import ReactNative.Components.Button (button')
 import ReactNative.Components.Navigator (Navigator, pop)
@@ -35,7 +36,7 @@ type MealViewState = {meal :: Meal, hasChanged :: Boolean}
 render :: Meal -> Navigator Route -> ReactElement
 render meal@(Meal m) nav = view_ [
       view_ [
-        title "QEF: Food Means Fun",
+        header nav,
         container [
           text_ m.name
         ],
@@ -62,7 +63,7 @@ mealDetail meal nav = createClass (spec {meal: meal, hasChanged: false} r)
           ]
         ],
         view columnStyles [
-          mealPhoto state.meal (onPressMealPhoto state.meal),
+          mealPhoto state.meal editStyles (onPressMealPhoto state.meal),
           text' _ {onPress = mkEffFn1 (\_ -> replace nav (TakePhoto state.meal))} "Add audio",
           view buttonContainerStyles [
             view buttonViewStyles [
@@ -75,9 +76,8 @@ mealDetail meal nav = createClass (spec {meal: meal, hasChanged: false} r)
         ]
       ]
         where saveMeal' _ = do
-                {meal: (Meal m)} <- readState ctx
-                -- setItem (mealId meal) (encodeJson meal)
-                executeSql' "INSERT INTO meals (name, description) VALUES (?, ?)" [SqlString m.name, SqlString m.description]
+                {meal} <- readState ctx
+                upsertMeal meal
                 pop nav
 
               onPressMealPhoto m = mkEffFn1 $ \_ -> replace nav (TakePhoto m)
@@ -89,7 +89,7 @@ mealDetail meal nav = createClass (spec {meal: meal, hasChanged: false} r)
                 pure unit
               confirmCancel false _ = pop nav
 
-              backToAdmin :: forall e. DateTime -> Eff (state :: ReactState (read:: Read, write :: Write) | e) Unit
+              backToAdmin :: forall e. Date -> Eff (state :: ReactState (read:: Read, write :: Write) | e) Unit
               backToAdmin date = replace nav (CalendarView date)
 
               nameError true "" = Just "Please enter a name for this meal"

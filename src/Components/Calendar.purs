@@ -1,6 +1,7 @@
 module Components.Calendar where
 
 import Prelude
+import Components.Icon (icon)
 import Data.Database (loadAllMeals)
 import Data.DateTime (Weekday(Sunday, Saturday, Friday, Thursday, Wednesday, Tuesday, Monday))
 import Data.Function.Eff (mkEffFn1)
@@ -8,18 +9,18 @@ import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..), lookup)
 import Dates (allDays)
 import Meals.Meals (Meal(Meal), MealTime(Dinner, Lunch), MealType(Vegetarian, Meat))
-import Meals.Slots (Slot(..), SlotDate(MenuSlotDate), weekNo)
+import Meals.Slots (Slot(..), SlotDate(MenuSlotDate), nextWeek, prevWeek, weekNo)
 import React (ReactClass, ReactElement, createClass, readState, spec)
 import ReactNative.Components.ListView (listView', listViewDataSource, rowRenderer)
 import ReactNative.Components.Navigator (Navigator, push)
-import ReactNative.Components.Text (text, text_)
+import ReactNative.Components.Text (text, text', text_)
 import ReactNative.Components.Touchable (touchableOpacity')
 import ReactNative.Components.View (view, view_)
 import ReactNative.PropTypes.Color (green, rgbi)
-import ReactNative.Styles (backgroundColor, borderBottomColor, borderBottomWidth, borderColor, borderLeftColor, borderLeftWidth, borderRadius, borderWidth, flex, hairlineWidth, marginBottom, padding, paddingHorizontal, paddingVertical, styles)
-import ReactNative.Styles.Flex (alignSelf, flexDirection, justifyContent, row, spaceBetween, stretch)
-import ReactNative.Styles.Text (color, fontSize)
-import Routes (Route(SelectMeal))
+import ReactNative.Styles (backgroundColor, borderBottomColor, borderBottomWidth, borderColor, borderLeftColor, borderLeftWidth, borderRadius, borderWidth, flex, hairlineWidth, marginBottom, marginLeft, marginRight, marginVertical, padding, paddingHorizontal, paddingVertical, styles)
+import ReactNative.Styles.Flex (alignItems, alignSelf, flexDirection, flexEnd, flexStart, justifyContent, row, spaceBetween, stretch)
+import ReactNative.Styles.Text (color, fontSize, textDecorationLine, underline)
+import Routes (Route(..), replace)
 
 type MealPair = {veg :: Maybe Meal, meat :: Maybe Meal}
 --
@@ -36,7 +37,31 @@ type MealPair = {veg :: Maybe Meal, meat :: Maybe Meal}
 getSlot :: Weekday -> MealType -> MealTime -> Slot
 getSlot d mt mti = Slot {date: MenuSlotDate d (weekNo 1), mealType: mt, mealTime: mti}
 
-
+calendarNav :: Navigator Route -> _ -> _ -> String -> ReactElement
+calendarNav nav back next currentText = view navStyles  [
+    view navLinkLeftStyles [
+      icon _{size = 16, name = "angle-left"},
+      text' _{onPress = back, style = styles [marginLeft 10, textDecorationLine underline]} "Previous 7 days"
+    ],
+    text_ $ currentText,
+    view navLinkRightStyles [
+      text' _{onPress = next, style = styles [marginRight 10, textDecorationLine underline]} "Next 7 days",
+      icon _{size = 16, name = "angle-right"}
+    ]
+  ]
+      where navStyles = styles [
+              flexDirection row,
+              justifyContent spaceBetween,
+              marginVertical 20
+            ]
+            navLinkLeftStyles = styles [
+              flexDirection row,
+              alignItems flexStart
+            ]
+            navLinkRightStyles = styles [
+              flexDirection row,
+              alignItems flexEnd
+            ]
 
 calendar :: _ -> Navigator Route -> ReactClass Unit
 calendar loadMeals nav = createClass $ (spec [] r) {componentDidMount = loadMeals}
@@ -80,9 +105,7 @@ mealContainer slot@(Slot s) week nav = view (mealStyles s.mealType) [
         ]
         setMealButton (Just (Meal meal)) slot = touchableOpacity' _{onPress = setMeal slot} $ text_ meal.name
 
-        setMeal slot = mkEffFn1 $ \_ -> do
-          loadAllMeals (\meals -> do
-            push nav (SelectMeal slot meals))
+        setMeal slot = mkEffFn1 $ \_ -> push nav (SelectMeal slot)
 
 
 ccs = styles [

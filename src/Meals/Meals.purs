@@ -98,4 +98,4 @@ allAllergens = [
 ]
 
 mealValid :: Meal -> Boolean
-mealValid (Meal m) = true-- not null m.name && isJust m.photoPath
+mealValid (Meal m) = not null m.name && isJust m.photoPath
