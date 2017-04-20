@@ -24,8 +24,8 @@ type MealPhotoStyles = {
 mealDetails :: Meal -> MealPhotoStyles -> ReactElement
 mealDetails meal@(Meal m) s = view_ [
   text (styles [fontSize 20]) m.name,
-  text_ m.description,
-  mealPhoto meal s (mkEffFn1 $ \_ -> pure unit)
+  text_ m.description
+  -- mealPhoto meal s (mkEffFn1 $ \_ -> pure unit)
 ]
 
 placeholderStyles :: Array StyleProp

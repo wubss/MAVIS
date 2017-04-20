@@ -3,13 +3,15 @@ module Components.Calendar where
 import Prelude
 import Components.Icon (icon)
 import Data.Database (loadAllMeals)
+import Data.Date (Date)
 import Data.DateTime (Weekday(Sunday, Saturday, Friday, Thursday, Wednesday, Tuesday, Monday))
+import Data.Enum (fromEnum)
 import Data.Function.Eff (mkEffFn1)
 import Data.Maybe (Maybe(..))
 import Data.Tuple (Tuple(..), lookup)
-import Dates (allDays)
+import Dates (addDays, allDays)
 import Meals.Meals (Meal(Meal), MealTime(Dinner, Lunch), MealType(Vegetarian, Meat))
-import Meals.Slots (Slot(..), SlotDate(MenuSlotDate), nextWeek, prevWeek, weekNo)
+import Meals.Slots (Slot(..), SlotDate(..), WeekNo(..), nextWeek, prevWeek, weekNo)
 import React (ReactClass, ReactElement, createClass, readState, spec)
 import ReactNative.Components.ListView (listView', listViewDataSource, rowRenderer)
 import ReactNative.Components.Navigator (Navigator, push)
@@ -22,20 +24,12 @@ import ReactNative.Styles.Flex (alignItems, alignSelf, flexDirection, flexEnd, f
 import ReactNative.Styles.Text (color, fontSize, textDecorationLine, underline)
 import Routes (Route(..), replace)
 
-type MealPair = {veg :: Maybe Meal, meat :: Maybe Meal}
---
--- newtype DayMenu = DayMenu {lunch :: MealPair, dinner :: MealPair, day :: Weekday}
---
--- mealDays :: Array DayMenu
--- mealDays = map dm [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
---   where dm n = blankDayMenu n
---
--- blankDayMenu :: Weekday -> DayMenu
--- blankDayMenu d = DayMenu {lunch: mp, dinner: mp, day: d}
---   where mp = {veg: Nothing, meat: Nothing}
+data CalendarArgs = CalendarMenuArgs WeekNo | CalendarDateArgs Date
 
-getSlot :: Weekday -> MealType -> MealTime -> Slot
-getSlot d mt mti = Slot {date: MenuSlotDate d (weekNo 1), mealType: mt, mealTime: mti}
+getSlot :: CalendarArgs -> Weekday -> MealType -> MealTime -> Slot
+getSlot (CalendarMenuArgs wn) d mt mti = Slot {date: MenuSlotDate d wn, mealType: mt, mealTime: mti}
+getSlot (CalendarDateArgs date) d mt mti = Slot {date: MealSlotDate date', mealType: mt, mealTime: mti}
+  where date' = addDays ((fromEnum d) - 1) date
 
 calendarNav :: Navigator Route -> _ -> _ -> String -> ReactElement
 calendarNav nav back next currentText = view navStyles  [
@@ -63,8 +57,8 @@ calendarNav nav back next currentText = view navStyles  [
               alignItems flexEnd
             ]
 
-calendar :: _ -> Navigator Route -> ReactClass Unit
-calendar loadMeals nav = createClass $ (spec [] r) {componentDidMount = loadMeals}
+calendar :: CalendarArgs -> _ -> Navigator Route -> ReactClass Unit
+calendar args loadMeals nav = createClass $ (spec [] r) {componentDidMount = loadMeals}
   where r ctx = do
           week <- readState ctx
           pure $ view_ [
@@ -79,8 +73,8 @@ calendar loadMeals nav = createClass $ (spec [] r) {componentDidMount = loadMeal
                   ]
 
                   mealR mealTime week day = view_ [
-                    mealContainer (getSlot day Vegetarian mealTime) week nav,
-                    mealContainer (getSlot day Meat mealTime) week nav
+                    mealContainer (getSlot args day Vegetarian mealTime) week nav,
+                    mealContainer (getSlot args day Meat mealTime) week nav
                   ]
 
 
@@ -106,7 +100,6 @@ mealContainer slot@(Slot s) week nav = view (mealStyles s.mealType) [
         setMealButton (Just (Meal meal)) slot = touchableOpacity' _{onPress = setMeal slot} $ text_ meal.name
 
         setMeal slot = mkEffFn1 $ \_ -> push nav (SelectMeal slot)
-
 
 ccs = styles [
   flexDirection row,

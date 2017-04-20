@@ -3,12 +3,11 @@ module Dates where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Now (NOW, now)
-import Data.Bounded (bottom, top)
 import Data.Date (Date, canonicalDate)
-import Data.DateTime (DateTime(..), Time(..), Weekday(..), adjust, date, weekday)
-import Data.DateTime.Format (defDateTimeFormatLocale, formatDate, formatDateTime)
+import Data.DateTime (DateTime(DateTime), Weekday(Sunday, Saturday, Friday, Thursday, Wednesday, Tuesday, Monday), adjust, date, weekday)
+import Data.DateTime.Format (defDateTimeFormatLocale, formatDate)
 import Data.DateTime.Instant (toDateTime)
-import Data.Either (Either(..), fromRight)
+import Data.Either (Either(Left, Right))
 import Data.Enum (fromEnum, toEnum)
 import Data.Int (fromString, toNumber)
 import Data.Maybe (fromJust)
@@ -24,12 +23,9 @@ adjustDate :: forall a. Duration a => a -> Date -> Date
 adjustDate dur d = unsafePartial fromJust (date <$> adjust dur (DateTime d bottom))
 
 unsafeFormatDateTime :: String -> Date -> String
-unsafeFormatDateTime fmt dt = unsafePartial $ fromRight $ formatDate fmt defDateTimeFormatLocale dt
-
-latestMonday :: Date -> Date
-latestMonday dt = case weekday dt of
-  Monday -> dt
-  today -> addDays (1 - (fromEnum today)) dt
+unsafeFormatDateTime fmt dt = case formatDate fmt defDateTimeFormatLocale dt of
+  Left err -> err
+  Right str -> str
 
 prevWeekStart :: Date -> Date
 prevWeekStart = addDays (-7)
@@ -41,7 +37,7 @@ showDate :: Date -> String
 showDate = unsafeFormatDateTime "%a %e %b"
 
 dbDate :: Date -> String
-dbDate = unsafeFormatDateTime "Y-m-d"
+dbDate = unsafeFormatDateTime "%Y-%m-%d"
 
 allDays :: Array Weekday
 allDays = [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
@@ -58,5 +54,13 @@ fromDbString s = case split (Pattern "-") s of
 err :: String
 err = "Date string was malformed"
 
-currentDate :: forall eff. Eff (now :: NOW  | eff) Date
-currentDate = (latestMonday <<< date <<< toDateTime) <$> now
+latestMonday :: forall eff. Eff (now :: NOW  | eff) Date
+latestMonday = (latestMonday' <<< date <<< toDateTime) <$> now
+
+latestMonday' :: Date -> Date
+latestMonday' dt = case weekday dt of
+  Monday -> dt
+  today -> addDays (1 - (fromEnum today)) dt
+
+currentDateTime :: forall eff. Eff (now :: NOW | eff) DateTime
+currentDateTime = toDateTime <$> now

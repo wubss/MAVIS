@@ -6,7 +6,7 @@ import Components.MealDetails (mealDetails, selectStyles)
 import Components.Picker (picker, pickerItem)
 import Components.Header (header)
 import Control.Monad.Eff (Eff)
-import Data.Database (fetchMeal, getMealForSlot, loadAllMeals, updateSlot)
+import Data.Database (fetchMeal, findMealForSlot, loadAllMeals, updateSlot)
 import Data.Function.Eff (mkEffFn1, mkEffFn2)
 import Data.Maybe (Maybe(..), isNothing)
 import Meals.Meals (Meal(Meal), MealType(Meat, Vegetarian), blankMeal, mealId)
@@ -54,7 +54,7 @@ mealDetailsContainer nav (Just meal) = view_ [
 mealDetailsContainer _ Nothing = view_ []
 
 loadMeal :: Slot -> ReactThis Unit (Maybe Meal) -> Eff _ Unit
-loadMeal slot ctx = getMealForSlot slot $ \maybeMeal -> do
+loadMeal slot ctx = findMealForSlot slot $ \maybeMeal -> do
   writeState ctx maybeMeal
   pure unit
 

@@ -1622,7 +1622,9 @@ var PS = {};
   };
   var red = "red";                
   var green = "green";
-  var gray = "gray";
+  var gray = "gray";                    
+  var black = "black";
+  exports["black"] = black;
   exports["gray"] = gray;
   exports["green"] = green;
   exports["red"] = red;
@@ -1636,20 +1638,27 @@ var PS = {};
   var ReactNative_PropTypes = PS["ReactNative.PropTypes"];
   var ReactNative_PropTypes_Color = PS["ReactNative.PropTypes.Color"];
   var Unsafe_Coerce = PS["Unsafe.Coerce"];        
-  var width = $foreign.unsafeStyleProp("width");
+  var width = $foreign.unsafeStyleProp("width");                                      
+  var top = $foreign.unsafeStyleProp("top");                    
+  var right = $foreign.unsafeStyleProp("right");
   var resizeMode = $foreign.unsafeStyleProp("resizeMode");
+  var position = $foreign.unsafeStyleProp("position");
   var paddingVertical = $foreign.unsafeStyleProp("paddingVertical");
+  var paddingTop = $foreign.unsafeStyleProp("paddingTop");  
   var paddingHorizontal = $foreign.unsafeStyleProp("paddingHorizontal");
   var padding = $foreign.unsafeStyleProp("padding");    
   var marginVertical = $foreign.unsafeStyleProp("marginVertical");
+  var marginTop = $foreign.unsafeStyleProp("marginTop");
   var marginRight = $foreign.unsafeStyleProp("marginRight");
   var marginLeft = $foreign.unsafeStyleProp("marginLeft");
   var marginHorizontal = $foreign.unsafeStyleProp("marginHorizontal");
   var marginBottom = $foreign.unsafeStyleProp("marginBottom");
+  var left = $foreign.unsafeStyleProp("left");
   var height = $foreign.unsafeStyleProp("height");      
   var flex = $foreign.unsafeStyleProp("flex");
   var cover = "cover";
-  var contain = "contain";                        
+  var contain = "contain";
+  var bottom = $foreign.unsafeStyleProp("bottom");
   var borderWidth = $foreign.unsafeStyleProp("borderWidth");          
   var borderRadius = $foreign.unsafeStyleProp("borderRadius");
   var borderLeftWidth = $foreign.unsafeStyleProp("borderLeftWidth");
@@ -1657,7 +1666,9 @@ var PS = {};
   var borderColor = $foreign.unsafeStyleProp("borderColor");
   var borderBottomWidth = $foreign.unsafeStyleProp("borderBottomWidth");          
   var borderBottomColor = $foreign.unsafeStyleProp("borderBottomColor");
-  var backgroundColor = $foreign.unsafeStyleProp("backgroundColor");
+  var backgroundColor = $foreign.unsafeStyleProp("backgroundColor");      
+  var absolute = "absolute";
+  exports["absolute"] = absolute;
   exports["backgroundColor"] = backgroundColor;
   exports["borderBottomColor"] = borderBottomColor;
   exports["borderBottomWidth"] = borderBottomWidth;
@@ -1666,19 +1677,26 @@ var PS = {};
   exports["borderLeftWidth"] = borderLeftWidth;
   exports["borderRadius"] = borderRadius;
   exports["borderWidth"] = borderWidth;
+  exports["bottom"] = bottom;
   exports["contain"] = contain;
   exports["cover"] = cover;
   exports["flex"] = flex;
   exports["height"] = height;
+  exports["left"] = left;
   exports["marginBottom"] = marginBottom;
   exports["marginHorizontal"] = marginHorizontal;
   exports["marginLeft"] = marginLeft;
   exports["marginRight"] = marginRight;
+  exports["marginTop"] = marginTop;
   exports["marginVertical"] = marginVertical;
   exports["padding"] = padding;
   exports["paddingHorizontal"] = paddingHorizontal;
+  exports["paddingTop"] = paddingTop;
   exports["paddingVertical"] = paddingVertical;
+  exports["position"] = position;
   exports["resizeMode"] = resizeMode;
+  exports["right"] = right;
+  exports["top"] = top;
   exports["width"] = width;
   exports["hairlineWidth"] = $foreign.hairlineWidth;
   exports["styles"] = $foreign.styles;
@@ -1975,80 +1993,246 @@ var PS = {};
   };
   exports["checkbox"] = checkbox;
 })(PS["Checkbox"] = PS["Checkbox"] || {});
-(function(exports) {
-  var SQLite =require("react-native-sqlite-storage");
+(function(exports) {var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();
+  var _react =require("react");                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             var _react2=_interopRequireDefault(_react);
+  var _reactNative =require("react-native");
+  var _FontAwesome =require("react-native-vector-icons/FontAwesome");var _FontAwesome2=_interopRequireDefault(_FontAwesome);
+  var _reactNativeSound =require("react-native-sound");var _reactNativeSound2=_interopRequireDefault(_reactNativeSound);
+  var _reactNativeAudio =require("react-native-audio");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
 
-  var errorCB=function errorCB(err){
-  console.log("SQL Error: "+err);
-  };
+  AudioExample=function(_Component){_inherits(AudioExample,_Component);function AudioExample(){var _ref;var _temp,_this,_ret;_classCallCheck(this,AudioExample);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref=AudioExample.__proto__||Object.getPrototypeOf(AudioExample)).call.apply(_ref,[this].concat(args))),_this),_this.
 
-  var openCB=function openCB(){
-  console.log("Database OPENED");
-  };
-
-
-
-
-
-
-
-
-
+  state={
+  currentTime:0.0,
+  recording:false,
+  stoppedRecording:false,
+  finished:false,
+  hasPermission:undefined,
+  audioPath:undefined,
+  hasRecording:false},_temp),_possibleConstructorReturn(_this,_ret);}_createClass(AudioExample,[{key:'newAudioFileName',value:function newAudioFileName()
 
 
+  {
+  var uuid='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){
+  var r=Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;
+  return v.toString(16);
+  });
 
+  return _reactNativeAudio.AudioUtils.DocumentDirectoryPath+'/'+uuid+'.aac';
+  }},{key:'prepareRecordingPath',value:function prepareRecordingPath(
 
+  audioPath){
+  _reactNativeAudio.AudioRecorder.prepareRecordingAtPath(this.state.audioPath,{
+  SampleRate:22050,
+  Channels:1,
+  AudioQuality:"Low",
+  AudioEncoding:"aac",
+  AudioEncodingBitRate:32000});
 
+  }},{key:'componentDidMount',value:function componentDidMount()
 
+  {var _this2=this;
+  this._checkPermission().then(function(hasPermission){
+  _this2.setState({hasPermission:hasPermission});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  var normaliseResults=function normaliseResults(results){
-  var out=[];
-  var len=results.rows.length;
-  for(var i=0;i<len;i++){
-  var row=results.rows.item(i);
-  out.push(row);
+  if(_this2.props.audioPath){
+  _this2.setState({hasRecording:true});
   }
-  return out;
+  _this2.setState({audioPath:_this2.props.audioPath||_this2.newAudioFileName()});
+
+  if(!hasPermission)return;
+
+  _this2.prepareRecordingPath(_this2.state.audioPath);
+
+  _reactNativeAudio.AudioRecorder.onProgress=function(data){
+  _this2.setState({currentTime:Math.floor(data.currentTime)});
   };
 
-  var dbo=SQLite.openDatabase({name:"testDB",createFromLocation:"~/www/mavis.sqlite"},openCB,errorCB);
-  exports.executeSqlImpl=function(sql,params,cb){
+  _reactNativeAudio.AudioRecorder.onFinished=function(data){
+
+  if(_reactNative.Platform.OS==='ios'){
+  _this2._finishRecording(data.status==="OK",data.audioFileURL);
+  }
+  };
+  });
+  }},{key:'_checkPermission',value:function _checkPermission()
+
+  {
+  if(_reactNative.Platform.OS!=='android'){
+  return Promise.resolve(true);
+  }
+
+  var rationale={
+  'title':'Microphone Permission',
+  'message':'AudioExample needs access to your microphone so you can record audio.'};
+
+
+  return _reactNative.PermissionsAndroid.request(_reactNative.PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,rationale).
+  then(function(result){
+  console.log('Permission result:',result);
+  return result===true||result===_reactNative.PermissionsAndroid.RESULTS.GRANTED;
+  });
+  }},{key:'_stop',value:function _stop(){var filePath;return regeneratorRuntime.async(function _stop$(_context){while(1){switch(_context.prev=_context.next){case 0:if(
+
+
+  this.state.recording){_context.next=3;break;}
+  console.warn('Can\'t stop, not recording!');return _context.abrupt('return');case 3:
+
+
+
+  this.setState({stoppedRecording:true,recording:false});_context.prev=4;_context.next=7;return regeneratorRuntime.awrap(
+
+
+  _reactNativeAudio.AudioRecorder.stopRecording());case 7:filePath=_context.sent;
+
+  if(_reactNative.Platform.OS==='android'){
+  this._finishRecording(true,filePath);
+  }return _context.abrupt('return',
+  filePath);case 12:_context.prev=12;_context.t0=_context['catch'](4);
+
+  console.error(_context.t0);case 15:case'end':return _context.stop();}}},null,this,[[4,12]]);}},{key:'_play',value:function _play(){var _this3=this;return regeneratorRuntime.async(function _play$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:if(!
+
+
+
+
+  this.state.recording){_context2.next=3;break;}_context2.next=3;return regeneratorRuntime.awrap(
+  this._stop());case 3:
+
+
+  setTimeout(function(){
+  var sound=new _reactNativeSound2.default(_this3.state.audioPath,'',function(error){
+  if(error){
+  console.log('failed to load the sound',error);
+  }
+  });
+
+  setTimeout(function(){
+  sound.play(function(success){
+  if(success){
+
+
+
+  console.log('successfully finished playing');
+  }else{
+
+
+
+  console.log('playback failed due to audio decoding errors');
+  }
+  });
+  },100);
+  },100);case 4:case'end':return _context2.stop();}}},null,this);}},{key:'_record',value:function _record(){var filePath;return regeneratorRuntime.async(function _record$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:if(!
+
+
+
+  this.state.recording){_context3.next=3;break;}
+  console.warn('Already recording!');return _context3.abrupt('return');case 3:if(
+
+
+
+  this.state.hasPermission){_context3.next=6;break;}
+  console.warn('Can\'t record, no permission granted!');return _context3.abrupt('return');case 6:
+
+
+
+  if(this.state.stoppedRecording){
+  this.prepareRecordingPath(this.state.audioPath);
+  }
+
+  this.setState({recording:true});_context3.prev=8;_context3.next=11;return regeneratorRuntime.awrap(
+
+
+  _reactNativeAudio.AudioRecorder.startRecording());case 11:filePath=_context3.sent;_context3.next=17;break;case 14:_context3.prev=14;_context3.t0=_context3['catch'](8);
+
+  console.error(_context3.t0);case 17:case'end':return _context3.stop();}}},null,this,[[8,14]]);}},{key:'_finishRecording',value:function _finishRecording(
+
+
+
+  didSucceed,filePath){
+  if(didSucceed){
+  this.setState({finished:true,hasRecording:true});
+  }
+  console.log('Finished recording of duration '+this.state.currentTime+' seconds at path: '+filePath);
+  if(didSucceed){
+  this.props.onRecorded(filePath);
+  }
+  }},{key:'_toggleRecording',value:function _toggleRecording()
+
+  {
+  if(this.state.recording){
+  this._stop();
+  }else{
+  this._record();
+  }
+  }},{key:'render',value:function render()
+
+  {var _this4=this;
+
+  return(
+  _react2.default.createElement(_reactNative.View,{style:styles.controls},
+  _react2.default.createElement(_reactNative.TouchableOpacity,{style:styles.button,onPress:function onPress(){_this4._toggleRecording();}},
+  _react2.default.createElement(_FontAwesome2.default,{name:this.state.recording?"microphone-slash":"microphone",size:48})),
+
+  _react2.default.createElement(_reactNative.TouchableOpacity,{style:styles.button,onPress:function onPress(){_this4._play();},disabled:!this.state.hasRecording},
+  _react2.default.createElement(_FontAwesome2.default,{name:'play-circle',size:48,color:this.state.hasRecording?'black':'gray'}))));
+
+
+
+  }}]);return AudioExample;}(_react.Component);
+
+
+  var styles=_reactNative.StyleSheet.create({
+  container:{
+  flex:1},
+
+  controls:{
+  flexDirection:'row',
+  justifyContent:'center',
+  alignItems:'center',
+  flex:1},
+
+  button:{
+  padding:5,
+  marginHorizontal:30}});
+
+
+
+  playSound=function playSound(filePath,successCb){
+  setTimeout(function(){
+  var sound=new _reactNativeSound2.default(filePath,'',function(error){
+  if(error){
+  console.log('failed to load the sound',error);
+  }
+  });
+
+  setTimeout(function(){
+  sound.play(function(success){
+  if(success){
+  if(successCb){
+  successCb();
+  }
+  console.log('successfully finished playing');
+  }else{
+
+
+
+  console.log('playback failed due to audio decoding errors');
+  }
+  });
+  },100);
+  },100);
+  };
+
+  exports.audioClass=AudioExample;
+
+  exports.playSound=function(filePath){
+  return function(successCb){
   return function(){
-  dbo.transaction(function(tx){
-  console.log('Executing: '+sql,"Params",params);
-  tx.executeSql(sql,params,function(tx,results){
-  var properResults=normaliseResults(results);
-  console.log("Results",properResults);
-  cb(properResults)();
-  });
-  });
+  return playSound(filePath,successCb);
   };
   };
-
-  exports.fromString=function(str){return str;};
-  exports.fromNumber=function(n){return n;};
-})(PS["Data.Database"] = PS["Data.Database"] || {});
+  };
+})(PS["Components.Audio"] = PS["Components.Audio"] || {});
 (function(exports) {
     "use strict";
 
@@ -2674,6 +2858,29 @@ var PS = {};
 (function(exports) {
     "use strict";
 
+  exports.adjustImpl = function (just) {
+    return function (nothing) {
+      return function (offset) {
+        return function (rec) {
+          var msUTC = Date.UTC(rec.year, rec.month - 1, rec.day, rec.hour, rec.minute, rec.second, rec.millisecond);
+          var dt = new Date(msUTC + offset);
+          return isNaN(dt.getTime()) ? nothing : just({
+            year: dt.getUTCFullYear(),
+            month: dt.getUTCMonth() + 1,
+            day: dt.getUTCDate(),
+            hour: dt.getUTCHours(),
+            minute: dt.getUTCMinutes(),
+            second: dt.getUTCSeconds(),
+            millisecond: dt.getUTCMilliseconds()
+          });
+        };
+      };
+    };
+  };
+})(PS["Data.DateTime"] = PS["Data.DateTime"] || {});
+(function(exports) {
+    "use strict";
+
   exports.canonicalDateImpl = function (ctor, y, m, d) {
     var date = new Date(Date.UTC(y, m - 1, d));
     return ctor(date.getUTCFullYear())(date.getUTCMonth() + 1)(date.getUTCDate());
@@ -2737,22 +2944,7 @@ var PS = {};
           };
           throw new Error("Failed pattern match at Data.Either line 37, column 3 - line 37, column 26: " + [ v.constructor.name, v1.constructor.name ]);
       };
-  });                                                                                                     
-  var fromRight = function (dictPartial) {
-      return function (v) {
-          var __unused = function (dictPartial1) {
-              return function ($dollar62) {
-                  return $dollar62;
-              };
-          };
-          return __unused(dictPartial)((function () {
-              if (v instanceof Right) {
-                  return v.value0;
-              };
-              throw new Error("Failed pattern match at Data.Either line 253, column 1 - line 253, column 23: " + [ v.constructor.name ]);
-          })());
-      };
-  };
+  });
   var either = function (v) {
       return function (v1) {
           return function (v2) {
@@ -2796,7 +2988,6 @@ var PS = {};
   exports["Left"] = Left;
   exports["Right"] = Right;
   exports["either"] = either;
-  exports["fromRight"] = fromRight;
   exports["functorEither"] = functorEither;
   exports["applyEither"] = applyEither;
   exports["applicativeEither"] = applicativeEither;
@@ -3747,29 +3938,6 @@ var PS = {};
   exports["year"] = year;
   exports["eqDate"] = eqDate;
 })(PS["Data.Date"] = PS["Data.Date"] || {});
-(function(exports) {
-    "use strict";
-
-  exports.adjustImpl = function (just) {
-    return function (nothing) {
-      return function (offset) {
-        return function (rec) {
-          var msUTC = Date.UTC(rec.year, rec.month - 1, rec.day, rec.hour, rec.minute, rec.second, rec.millisecond);
-          var dt = new Date(msUTC + offset);
-          return isNaN(dt.getTime()) ? nothing : just({
-            year: dt.getUTCFullYear(),
-            month: dt.getUTCMonth() + 1,
-            day: dt.getUTCDate(),
-            hour: dt.getUTCHours(),
-            minute: dt.getUTCMinutes(),
-            second: dt.getUTCSeconds(),
-            millisecond: dt.getUTCMilliseconds()
-          });
-        };
-      };
-    };
-  };
-})(PS["Data.DateTime"] = PS["Data.DateTime"] || {});
 (function(exports) {
   // Generated by psc version 0.10.5
   "use strict";
@@ -5828,7 +5996,6 @@ var PS = {};
   var Prelude = PS["Prelude"];
   var Control_Monad_Eff = PS["Control.Monad.Eff"];
   var Control_Monad_Eff_Now = PS["Control.Monad.Eff.Now"];
-  var Data_Bounded = PS["Data.Bounded"];
   var Data_Date = PS["Data.Date"];
   var Data_DateTime = PS["Data.DateTime"];
   var Data_DateTime_Format = PS["Data.DateTime.Format"];
@@ -5841,32 +6008,38 @@ var PS = {};
   var Data_Time_Duration = PS["Data.Time.Duration"];
   var Partial_Unsafe = PS["Partial.Unsafe"];
   var Utils = PS["Utils"];
-  var Data_Function = PS["Data.Function"];
   var Data_DateTime_Format_Format = PS["Data.DateTime.Format.Format"];
   var Data_DateTime_Format_Class = PS["Data.DateTime.Format.Class"];
   var Data_DateTime_Format_FormatLocale = PS["Data.DateTime.Format.FormatLocale"];
+  var Data_Function = PS["Data.Function"];
   var Control_Bind = PS["Control.Bind"];
   var Data_Date_Component = PS["Data.Date.Component"];
   var Control_Applicative = PS["Control.Applicative"];
   var Data_Functor = PS["Data.Functor"];
+  var Data_Bounded = PS["Data.Bounded"];
   var Data_Time = PS["Data.Time"];
   var Data_Ring = PS["Data.Ring"];
   var Control_Semigroupoid = PS["Control.Semigroupoid"];        
   var unsafeFormatDateTime = function (fmt) {
       return function (dt) {
-          return Partial_Unsafe.unsafePartial(function (dictPartial) {
-              return Data_Either.fromRight(dictPartial)(Data_DateTime_Format_Format.formatDate(Data_DateTime_Format_Class.formatDateDate)(fmt)(Data_DateTime_Format_FormatLocale.defDateTimeFormatLocale)(dt));
-          });
+          var $5 = Data_DateTime_Format_Format.formatDate(Data_DateTime_Format_Class.formatDateDate)(fmt)(Data_DateTime_Format_FormatLocale.defDateTimeFormatLocale)(dt);
+          if ($5 instanceof Data_Either.Left) {
+              return $5.value0;
+          };
+          if ($5 instanceof Data_Either.Right) {
+              return $5.value0;
+          };
+          throw new Error("Failed pattern match at Dates line 26, column 31 - line 28, column 19: " + [ $5.constructor.name ]);
       };
   };
   var showDate = unsafeFormatDateTime("%a %e %b");
   var err = "Date string was malformed";
   var fromDbString = function (s) {
-      var $6 = Data_String.split("-")(s);
-      if ($6.length === 3) {
-          return Utils.maybeToEither(err)(Control_Bind.bind(Data_Maybe.bindMaybe)(Control_Bind.bind(Data_Maybe.bindMaybe)(Data_Int.fromString($6[0]))(Data_Enum.toEnum(Data_Date_Component.boundedEnumYear)))(function (v) {
-              return Control_Bind.bind(Data_Maybe.bindMaybe)(Control_Bind.bind(Data_Maybe.bindMaybe)(Data_Int.fromString($6[1]))(Data_Enum.toEnum(Data_Date_Component.boundedEnumMonth)))(function (v1) {
-                  return Control_Bind.bind(Data_Maybe.bindMaybe)(Control_Bind.bind(Data_Maybe.bindMaybe)(Data_Int.fromString($6[2]))(Data_Enum.toEnum(Data_Date_Component.boundedEnumDay)))(function (v2) {
+      var $8 = Data_String.split("-")(s);
+      if ($8.length === 3) {
+          return Utils.maybeToEither(err)(Control_Bind.bind(Data_Maybe.bindMaybe)(Control_Bind.bind(Data_Maybe.bindMaybe)(Data_Int.fromString($8[0]))(Data_Enum.toEnum(Data_Date_Component.boundedEnumYear)))(function (v) {
+              return Control_Bind.bind(Data_Maybe.bindMaybe)(Control_Bind.bind(Data_Maybe.bindMaybe)(Data_Int.fromString($8[1]))(Data_Enum.toEnum(Data_Date_Component.boundedEnumMonth)))(function (v1) {
+                  return Control_Bind.bind(Data_Maybe.bindMaybe)(Control_Bind.bind(Data_Maybe.bindMaybe)(Data_Int.fromString($8[2]))(Data_Enum.toEnum(Data_Date_Component.boundedEnumDay)))(function (v2) {
                       return Control_Applicative.pure(Data_Maybe.applicativeMaybe)(Data_Date.canonicalDate(v)(v1)(v2));
                   });
               });
@@ -5874,7 +6047,8 @@ var PS = {};
       };
       return new Data_Either.Left(err);
   };
-  var dbDate = unsafeFormatDateTime("Y-m-d");
+  var dbDate = unsafeFormatDateTime("%Y-%m-%d");
+  var currentDateTime = Data_Functor.map(Control_Monad_Eff.functorEff)(Data_DateTime_Instant.toDateTime)(Control_Monad_Eff_Now.now);
   var allDays = [ Data_Date_Component.Monday.value, Data_Date_Component.Tuesday.value, Data_Date_Component.Wednesday.value, Data_Date_Component.Thursday.value, Data_Date_Component.Friday.value, Data_Date_Component.Saturday.value, Data_Date_Component.Sunday.value ];
   var adjustDate = function (dictDuration) {
       return function (dur) {
@@ -5888,22 +6062,22 @@ var PS = {};
   var addDays = function (n) {
       return adjustDate(Data_Time_Duration.durationMilliseconds)(Data_Time_Duration.fromDuration(Data_Time_Duration.durationDays)(Data_Int.toNumber(n)));
   };
-  var latestMonday = function (dt) {
-      var $13 = Data_Date.weekday(dt);
-      if ($13 instanceof Data_Date_Component.Monday) {
+  var latestMonday$prime = function (dt) {
+      var $15 = Data_Date.weekday(dt);
+      if ($15 instanceof Data_Date_Component.Monday) {
           return dt;
       };
-      return addDays(1 - Data_Enum.fromEnum(Data_Date_Component.boundedEnumWeekday)($13))(dt);
+      return addDays(1 - Data_Enum.fromEnum(Data_Date_Component.boundedEnumWeekday)($15))(dt);
   };
-  var currentDate = Data_Functor.map(Control_Monad_Eff.functorEff)(function ($14) {
-      return latestMonday(Data_DateTime.date(Data_DateTime_Instant.toDateTime($14)));
+  var latestMonday = Data_Functor.map(Control_Monad_Eff.functorEff)(function ($16) {
+      return latestMonday$prime(Data_DateTime.date(Data_DateTime_Instant.toDateTime($16)));
   })(Control_Monad_Eff_Now.now);
   var nextWeekStart = addDays(7);
   var prevWeekStart = addDays(-7);
   exports["addDays"] = addDays;
   exports["adjustDate"] = adjustDate;
   exports["allDays"] = allDays;
-  exports["currentDate"] = currentDate;
+  exports["currentDateTime"] = currentDateTime;
   exports["dbDate"] = dbDate;
   exports["err"] = err;
   exports["fromDbString"] = fromDbString;
@@ -5914,8 +6088,7 @@ var PS = {};
   exports["unsafeFormatDateTime"] = unsafeFormatDateTime;
 })(PS["Dates"] = PS["Dates"] || {});
 (function(exports) {
-  // Generated by psc version 0.10.5
-  "use strict";
+    "use strict";
   var Prelude = PS["Prelude"];
   var Data_Argonaut = PS["Data.Argonaut"];
   var Data_Array = PS["Data.Array"];
@@ -5973,17 +6146,17 @@ var PS = {};
                   if (b) {
                       return Data_Array.cons(name)(v.allergens);
                   };
-                  throw new Error("Failed pattern match at Meals.Meals line 88, column 24 - line 90, column 39: " + [ b.constructor.name ]);
+                  throw new Error("Failed pattern match at Meals.Meals line 91, column 24 - line 93, column 39: " + [ b.constructor.name ]);
               })();
               return Meal((function () {
-                  var $22 = {};
-                  for (var $23 in v) {
-                      if ({}.hasOwnProperty.call(v, $23)) {
-                          $22[$23] = v[$23];
+                  var $23 = {};
+                  for (var $24 in v) {
+                      if ({}.hasOwnProperty.call(v, $24)) {
+                          $23[$24] = v[$24];
                       };
                   };
-                  $22.allergens = newAllergens;
-                  return $22;
+                  $23.allergens = newAllergens;
+                  return $23;
               })());
           };
       };
@@ -6027,48 +6200,85 @@ var PS = {};
       };
       throw new Error("Failed pattern match at Meals.Meals line 42, column 3 - line 43, column 3: " + [ v.constructor.name ]);
   });
+
+  /**
+ *  instance encodeMeal :: EncodeJson Meal where
+ *    encodeJson (Meal meal)
+ *      = "name" := meal.name
+ *      ~> "description" := meal.description
+ *      ~> "photoPath" := meal.photoPath
+ *      ~> "allergens" := meal.allergens
+ *      ~> jsonEmptyObject
+ * 
+ *  instance decodeMeal :: DecodeJson Meal where
+ *    decodeJson json = do
+ *      obj <- decodeJson json
+ *      name <- obj .? "name"
+ *      description <- obj .? "description"
+ *      photoPath <- obj .? "photoPath"
+ *      allergens <- obj .? "allergens"
+ *      pure $ Meal {name: name, description: description, allergens: allergens, photoPath: photoPath}
+ */  
   var showMeal = new Data_Show.Show(function (v) {
       return Data_Show.show(Data_Maybe.showMaybe(Data_Show.showInt))(v.id) + (": " + v.name);
   });
   var setPhotoPath = function (path) {
       return function (v) {
-          var $33 = {};
-          for (var $34 in v) {
-              if ({}.hasOwnProperty.call(v, $34)) {
-                  $33[$34] = v[$34];
+          var $34 = {};
+          for (var $35 in v) {
+              if ({}.hasOwnProperty.call(v, $35)) {
+                  $34[$35] = v[$35];
               };
           };
-          $33.photoPath = new Data_Maybe.Just(path);
-          return $33;
+          $34.photoPath = new Data_Maybe.Just(path);
+          return $34;
       };
   };
   var setName = function (n) {
       return function (v) {
-          var $38 = {};
-          for (var $39 in v) {
-              if ({}.hasOwnProperty.call(v, $39)) {
-                  $38[$39] = v[$39];
+          var $39 = {};
+          for (var $40 in v) {
+              if ({}.hasOwnProperty.call(v, $40)) {
+                  $39[$40] = v[$40];
               };
           };
-          $38.name = n;
-          return $38;
+          $39.name = n;
+          return $39;
       };
   };
   var setDescription = function (n) {
       return function (v) {
-          var $43 = {};
-          for (var $44 in v) {
-              if ({}.hasOwnProperty.call(v, $44)) {
-                  $43[$44] = v[$44];
+          var $44 = {};
+          for (var $45 in v) {
+              if ({}.hasOwnProperty.call(v, $45)) {
+                  $44[$45] = v[$45];
               };
           };
-          $43.description = n;
-          return $43;
+          $44.description = n;
+          return $44;
+      };
+  };
+  var setAudioPath = function (path) {
+      return function (v) {
+          var $49 = {};
+          for (var $50 in v) {
+              if ({}.hasOwnProperty.call(v, $50)) {
+                  $49[$50] = v[$50];
+              };
+          };
+          $49.audioPath = new Data_Maybe.Just(path);
+          return $49;
       };
   };
   var mealValid = function (v) {
       return Data_HeytingAlgebra.not(Data_HeytingAlgebra.heytingAlgebraFunction(Data_HeytingAlgebra.heytingAlgebraBoolean))(Data_String["null"])(v.name) && Data_Maybe.isJust(v.photoPath);
   };
+
+  /**
+ * 
+ *  mealStorageKey :: DateTime -> MealType -> MealTime -> String
+ *  mealStorageKey dt mealType mealTime = (unsafeFormatDateTime "%Y-%m-%d-" dt) <> show mealType <> show mealTime
+ */  
   var mealId = function (v) {
       return Partial_Unsafe.unsafePartial(function (dictPartial) {
           return Data_Maybe.fromJust(dictPartial)(v.id);
@@ -6106,7 +6316,8 @@ var PS = {};
       name: "", 
       description: "", 
       allergens: [  ], 
-      photoPath: Data_Maybe.Nothing.value
+      photoPath: Data_Maybe.Nothing.value, 
+      audioPath: Data_Maybe.Nothing.value
   };
   var allAllergens = [ "Beef", "Molluscs", "Gluten", "Nuts", "Mustard", "Celery", "Eggs", "Fish", "Dairy", "Sesame" ];
   exports["Meal"] = Meal;
@@ -6119,6 +6330,7 @@ var PS = {};
   exports["hasAllergen"] = hasAllergen;
   exports["mealId"] = mealId;
   exports["mealValid"] = mealValid;
+  exports["setAudioPath"] = setAudioPath;
   exports["setDescription"] = setDescription;
   exports["setName"] = setName;
   exports["setPhotoPath"] = setPhotoPath;
@@ -6135,21 +6347,208 @@ var PS = {};
 (function(exports) {
   // Generated by psc version 0.10.5
   "use strict";
+  var ReactNative_PropTypes = PS["ReactNative.PropTypes"];
+  var ReactNative_PropTypes_Color = PS["ReactNative.PropTypes.Color"];
+  var ReactNative_Styles = PS["ReactNative.Styles"];  
+  var underline = "underline";                                                
+  var textDecorationLine = ReactNative_Styles.unsafeStyleProp("textDecorationLine");
+  var textAlign = ReactNative_Styles.unsafeStyleProp("textAlign");
+  var fontSize = ReactNative_Styles.unsafeStyleProp("fontSize");
+  var color = ReactNative_Styles.unsafeStyleProp("color");
+  var centerTextAlign = new ReactNative_PropTypes.CenterEnum("center");
+  exports["color"] = color;
+  exports["fontSize"] = fontSize;
+  exports["textAlign"] = textAlign;
+  exports["textDecorationLine"] = textDecorationLine;
+  exports["underline"] = underline;
+  exports["centerTextAlign"] = centerTextAlign;
+})(PS["ReactNative.Styles.Text"] = PS["ReactNative.Styles.Text"] || {});
+(function(exports) {
+  // Generated by psc version 0.10.5
+  "use strict";
+  var $foreign = PS["Components.Audio"];
+  var Prelude = PS["Prelude"];
+  var Components_Icon = PS["Components.Icon"];
+  var Control_Monad_Eff = PS["Control.Monad.Eff"];
+  var Data_Function_Eff = PS["Data.Function.Eff"];
+  var Data_Function_Uncurried = PS["Data.Function.Uncurried"];
+  var Data_Maybe = PS["Data.Maybe"];
+  var Meals_Meals = PS["Meals.Meals"];
+  var React = PS["React"];
+  var ReactNative_Components_Touchable = PS["ReactNative.Components.Touchable"];
+  var ReactNative_Events = PS["ReactNative.Events"];
+  var ReactNative_PropTypes = PS["ReactNative.PropTypes"];
+  var ReactNative_PropTypes_Color = PS["ReactNative.PropTypes.Color"];
+  var ReactNative_Styles = PS["ReactNative.Styles"];
+  var ReactNative_Styles_Text = PS["ReactNative.Styles.Text"];
+  var Control_Applicative = PS["Control.Applicative"];
+  var Data_Unit = PS["Data.Unit"];
+  var Control_Bind = PS["Control.Bind"];
+  var Data_Function = PS["Data.Function"];        
+  var relevantIcon = function (v) {
+      if (!v) {
+          return "play-circle";
+      };
+      if (v) {
+          return "volume-up";
+      };
+      throw new Error("Failed pattern match at Components.Audio line 35, column 1 - line 36, column 1: " + [ v.constructor.name ]);
+  };
+  var playMealAudio = function (v) {
+      return function (v1) {
+          if (v instanceof Data_Maybe.Nothing) {
+              return Control_Applicative.pure(Control_Monad_Eff.applicativeEff)(Data_Unit.unit);
+          };
+          if (v instanceof Data_Maybe.Just) {
+              return function __do() {
+                  React.writeState(v1)(true)();
+                  $foreign.playSound(v.value0)(Data_Function_Eff.mkEffFn1(function (v2) {
+                      return function __do() {
+                          React.writeState(v1)(false)();
+                          return Data_Unit.unit;
+                      };
+                  }))();
+                  return Data_Unit.unit;
+              };
+          };
+          throw new Error("Failed pattern match at Components.Audio line 39, column 1 - line 39, column 36: " + [ v.constructor.name, v1.constructor.name ]);
+      };
+  };
+  var playback = function (v) {
+      var r = function (ctx) {
+          var iconStyles = ReactNative_Styles.styles([ ReactNative_Styles_Text.textAlign(ReactNative_PropTypes.center(ReactNative_Styles_Text.centerTextAlign)) ]);
+          return function __do() {
+              var v1 = React.readState(ctx)();
+              return ReactNative_Components_Touchable["touchableOpacity'"](function (v2) {
+                  var $17 = {};
+                  for (var $18 in v2) {
+                      if ({}.hasOwnProperty.call(v2, $18)) {
+                          $17[$18] = v2[$18];
+                      };
+                  };
+                  $17.onPress = Data_Function_Eff.mkEffFn1(function (v3) {
+                      return playMealAudio(v.audioPath)(ctx);
+                  });
+                  return $17;
+              })(Components_Icon.icon(function (v2) {
+                  var $20 = {};
+                  for (var $21 in v2) {
+                      if ({}.hasOwnProperty.call(v2, $21)) {
+                          $20[$21] = v2[$21];
+                      };
+                  };
+                  $20.name = relevantIcon(v1);
+                  $20.size = 60;
+                  $20.color = ReactNative_PropTypes_Color.white;
+                  $20.style = iconStyles;
+                  return $20;
+              }));
+          };
+      };
+      return React.createClass(React.spec(false)(r));
+  };
+  exports["playback"] = playback;
+  exports["audioClass"] = $foreign.audioClass;
+})(PS["Components.Audio"] = PS["Components.Audio"] || {});
+(function(exports) {
+  var SQLite =require("react-native-sqlite-storage");
+
+  var errorCB=function errorCB(err){
+  console.log("SQL Error: "+err);
+  };
+
+  var openCB=function openCB(){
+  console.log("Database OPENED");
+  };
+
+  var normaliseResults=function normaliseResults(results){
+  var out=[];
+  var len=results.rows.length;
+  for(var i=0;i<len;i++){
+  var row=results.rows.item(i);
+  out.push(row);
+  }
+  return out;
+  };
+
+  var dbo=SQLite.openDatabase({name:"testDB",createFromLocation:"~/www/mavis.sqlite"},openCB,errorCB);
+  exports.executeSqlImpl=function(sql,params,cb){
+  return function(){
+  dbo.transaction(function(tx){
+  console.log('Executing: '+sql,"Params",params);
+  tx.executeSql(sql,params,function(tx,results){
+  var properResults=normaliseResults(results);
+  console.log("Results",properResults);
+  cb(properResults)();
+  });
+  });
+  };
+  };
+
+  exports.fromString=function(str){return str;};
+  exports.fromNumber=function(n){return n;};
+})(PS["Data.Database"] = PS["Data.Database"] || {});
+(function(exports) {
+    "use strict";
+
+  exports.log = function (s) {
+    return function () {
+      console.log(s);
+      return {};
+    };
+  };
+
+  exports.error = function (s) {
+    return function () {
+      console.error(s);
+      return {};
+    };
+  };
+})(PS["Control.Monad.Eff.Console"] = PS["Control.Monad.Eff.Console"] || {});
+(function(exports) {
+  // Generated by psc version 0.10.5
+  "use strict";
+  var $foreign = PS["Control.Monad.Eff.Console"];
+  var Control_Monad_Eff = PS["Control.Monad.Eff"];
+  var Data_Show = PS["Data.Show"];
+  var Data_Unit = PS["Data.Unit"];
+  var logShow = function (dictShow) {
+      return function (a) {
+          return $foreign.log(Data_Show.show(dictShow)(a));
+      };
+  };
+  exports["logShow"] = logShow;
+  exports["error"] = $foreign.error;
+  exports["log"] = $foreign.log;
+})(PS["Control.Monad.Eff.Console"] = PS["Control.Monad.Eff.Console"] || {});
+(function(exports) {
+  // Generated by psc version 0.10.5
+  "use strict";
   var Prelude = PS["Prelude"];
   var Data_Date = PS["Data.Date"];
   var Data_DateTime = PS["Data.DateTime"];
+  var Data_Either = PS["Data.Either"];
+  var Data_Enum = PS["Data.Enum"];
   var Data_Maybe = PS["Data.Maybe"];
-  var Data_Show = PS["Data.Show"];
   var Dates = PS["Dates"];
   var Meals_Meals = PS["Meals.Meals"];
+  var Partial_Unsafe = PS["Partial.Unsafe"];
+  var Utils = PS["Utils"];
   var Data_Eq = PS["Data.Eq"];
   var Data_HeytingAlgebra = PS["Data.HeytingAlgebra"];
+  var Data_Show = PS["Data.Show"];
   var Data_Semigroup = PS["Data.Semigroup"];
   var Data_Date_Component = PS["Data.Date.Component"];
   var Data_Function = PS["Data.Function"];
   var Data_Ord = PS["Data.Ord"];
   var Data_Ring = PS["Data.Ring"];
-  var Data_Semiring = PS["Data.Semiring"];        
+  var Data_Semiring = PS["Data.Semiring"];
+  var Control_Bind = PS["Control.Bind"];
+  var Control_Applicative = PS["Control.Applicative"];
+  var Control_Apply = PS["Control.Apply"];
+  var Data_Functor = PS["Data.Functor"];
+  var Data_Time = PS["Data.Time"];
+  var Data_Time_Component = PS["Data.Time.Component"];        
   var WeekNo = function (x) {
       return x;
   };
@@ -6183,14 +6582,60 @@ var PS = {};
   var unWeekNo = function (v) {
       return v;
   };
-  var slotDateWeekNo = function (v) {
-      if (v instanceof MenuSlotDate) {
-          return new Data_Maybe.Just(v.value1);
+  var toggleMealType = function (v) {
+      if (v.mealType instanceof Meals_Meals.Vegetarian) {
+          var $32 = {};
+          for (var $33 in v) {
+              if ({}.hasOwnProperty.call(v, $33)) {
+                  $32[$33] = v[$33];
+              };
+          };
+          $32.mealType = Meals_Meals.Meat.value;
+          return $32;
       };
-      return Data_Maybe.Nothing.value;
+      if (v.mealType instanceof Meals_Meals.Meat) {
+          var $36 = {};
+          for (var $37 in v) {
+              if ({}.hasOwnProperty.call(v, $37)) {
+                  $36[$37] = v[$37];
+              };
+          };
+          $36.mealType = Meals_Meals.Vegetarian.value;
+          return $36;
+      };
+      throw new Error("Failed pattern match at Meals.Slots line 84, column 1 - line 84, column 88: " + [ v.constructor.name ]);
+  };
+  var toggleMealTime = function (v) {
+      if (v.mealTime instanceof Meals_Meals.Lunch) {
+          var $41 = {};
+          for (var $42 in v) {
+              if ({}.hasOwnProperty.call(v, $42)) {
+                  $41[$42] = v[$42];
+              };
+          };
+          $41.mealTime = Meals_Meals.Dinner.value;
+          return $41;
+      };
+      if (v.mealTime instanceof Meals_Meals.Dinner) {
+          var $45 = {};
+          for (var $46 in v) {
+              if ({}.hasOwnProperty.call(v, $46)) {
+                  $45[$46] = v[$46];
+              };
+          };
+          $45.mealTime = Meals_Meals.Lunch.value;
+          return $45;
+      };
+      throw new Error("Failed pattern match at Meals.Slots line 88, column 1 - line 88, column 85: " + [ v.constructor.name ]);
   };
   var slotDateWeekDay = function (v) {
       if (v instanceof MenuSlotDate) {
+          return new Data_Maybe.Just(v.value0);
+      };
+      return Data_Maybe.Nothing.value;
+  };
+  var slotDateDate = function (v) {
+      if (v instanceof MealSlotDate) {
           return new Data_Maybe.Just(v.value0);
       };
       return Data_Maybe.Nothing.value;
@@ -6203,18 +6648,43 @@ var PS = {};
           return Data_Show.show(Data_Date_Component.showWeekday)(v.value0) + ("-" + showWeekNo(v.value1));
       };
       if (v instanceof MealSlotDate) {
-          return Dates.unsafeFormatDateTime("%Y-%m-%d-")(v.value0);
+          return Dates.unsafeFormatDateTime("%Y-%m-%d")(v.value0);
       };
-      throw new Error("Failed pattern match at Meals.Slots line 32, column 1 - line 32, column 74: " + [ v.constructor.name ]);
+      throw new Error("Failed pattern match at Meals.Slots line 27, column 1 - line 27, column 74: " + [ v.constructor.name ]);
   };
+  var sSlotDate = new Data_Show.Show(showSlotDate);
   var showSlot = new Data_Show.Show(function (v) {
-      return Data_Show.show(Meals_Meals.showMealTime)(v.mealTime) + Data_Show.show(Meals_Meals.showMealType)(v.mealType);
+      return Data_Show.show(Meals_Meals.showMealTime)(v.mealTime) + (Data_Show.show(Meals_Meals.showMealType)(v.mealType) + Data_Show.show(sSlotDate)(v.date));
   });
   var prevWeek = function (v) {
       return WeekNo(Data_Ord.max(Data_Ord.ordInt)(v - 1)(0));
   };
   var nextWeek = function (v) {
       return WeekNo(Data_Ord.min(Data_Ord.ordInt)(v + 1 | 0)(4));
+  };
+  var nextSlot = function (dt) {
+      return {
+          date: new MealSlotDate(Data_DateTime.date(dt)), 
+          mealType: Meals_Meals.Vegetarian.value, 
+          mealTime: Meals_Meals.Lunch.value
+      };
+  };
+  var menuSlotDateToMealSlotDate = function (d) {
+      return function (slotDate) {
+          return Control_Bind.bind(Data_Either.bindEither)(Utils.maybeToEither("Day not valid")(slotDateWeekDay(slotDate)))(function (v) {
+              var newDate = Dates.addDays(Data_Enum.fromEnum(Data_Date_Component.boundedEnumWeekday)(v) - 1)(d);
+              return Control_Applicative.pure(Data_Either.applicativeEither)(new MealSlotDate(newDate));
+          });
+      };
+  };
+  var mealSlotDateToMenuSlotDate = function (d) {
+      return function (wn) {
+          return function (slotDate) {
+              return Control_Bind.bind(Data_Either.bindEither)(Utils.maybeToEither("Date not valid")(slotDateDate(slotDate)))(function (v) {
+                  return Control_Applicative.pure(Data_Either.applicativeEither)(new MenuSlotDate(Data_Date.weekday(v), wn));
+              });
+          };
+      };
   };
   var eqWeekNo = new Data_Eq.Eq(function (x) {
       return function (y) {
@@ -6240,12 +6710,17 @@ var PS = {};
   exports["MenuSlotDate"] = MenuSlotDate;
   exports["MealSlotDate"] = MealSlotDate;
   exports["WeekNo"] = WeekNo;
+  exports["mealSlotDateToMenuSlotDate"] = mealSlotDateToMenuSlotDate;
+  exports["menuSlotDateToMealSlotDate"] = menuSlotDateToMealSlotDate;
+  exports["nextSlot"] = nextSlot;
   exports["nextWeek"] = nextWeek;
   exports["prevWeek"] = prevWeek;
   exports["showSlotDate"] = showSlotDate;
   exports["showWeekNo"] = showWeekNo;
+  exports["slotDateDate"] = slotDateDate;
   exports["slotDateWeekDay"] = slotDateWeekDay;
-  exports["slotDateWeekNo"] = slotDateWeekNo;
+  exports["toggleMealTime"] = toggleMealTime;
+  exports["toggleMealType"] = toggleMealType;
   exports["unWeekNo"] = unWeekNo;
   exports["weekNo"] = weekNo;
   exports["weekNoFromDate"] = weekNoFromDate;
@@ -6253,6 +6728,7 @@ var PS = {};
   exports["eqSlotDate"] = eqSlotDate;
   exports["eqSlot"] = eqSlot;
   exports["showSlot"] = showSlot;
+  exports["sSlotDate"] = sSlotDate;
 })(PS["Meals.Slots"] = PS["Meals.Slots"] || {});
 (function(exports) {
   // Generated by psc version 0.10.5
@@ -6260,9 +6736,9 @@ var PS = {};
   var $foreign = PS["Data.Database"];
   var Prelude = PS["Prelude"];
   var Control_Monad_Eff = PS["Control.Monad.Eff"];
+  var Control_Monad_Eff_Console = PS["Control.Monad.Eff.Console"];
   var Data_Array = PS["Data.Array"];
   var Data_Date = PS["Data.Date"];
-  var Data_DateTime = PS["Data.DateTime"];
   var Data_Either = PS["Data.Either"];
   var Data_Enum = PS["Data.Enum"];
   var Data_Function_Uncurried = PS["Data.Function.Uncurried"];
@@ -6320,26 +6796,26 @@ var PS = {};
               if (x instanceof Data_Either.Right) {
                   return Data_Array.cons(x.value0)(acc);
               };
-              throw new Error("Failed pattern match at Data.Database line 89, column 19 - line 91, column 33: " + [ x.constructor.name ]);
+              throw new Error("Failed pattern match at Data.Database line 98, column 19 - line 100, column 33: " + [ x.constructor.name ]);
           };
       };
       return Data_Foldable.foldl(Data_Foldable.foldableArray)(f)([  ])(eithers);
   };
   var singleMeal = function (eithers) {
-      var $27 = Data_Array.head(eithers);
-      if ($27 instanceof Data_Maybe.Nothing) {
+      var $23 = Data_Array.head(eithers);
+      if ($23 instanceof Data_Maybe.Nothing) {
           return Data_Maybe.Nothing.value;
       };
-      if ($27 instanceof Data_Maybe.Just) {
-          if ($27.value0 instanceof Data_Either.Left) {
+      if ($23 instanceof Data_Maybe.Just) {
+          if ($23.value0 instanceof Data_Either.Left) {
               return Data_Maybe.Nothing.value;
           };
-          if ($27.value0 instanceof Data_Either.Right) {
-              return new Data_Maybe.Just($27.value0.value0);
+          if ($23.value0 instanceof Data_Either.Right) {
+              return new Data_Maybe.Just($23.value0.value0);
           };
-          throw new Error("Failed pattern match at Data.Database line 96, column 20 - line 98, column 22: " + [ $27.value0.constructor.name ]);
+          throw new Error("Failed pattern match at Data.Database line 105, column 20 - line 107, column 22: " + [ $23.value0.constructor.name ]);
       };
-      throw new Error("Failed pattern match at Data.Database line 94, column 22 - line 98, column 22: " + [ $27.constructor.name ]);
+      throw new Error("Failed pattern match at Data.Database line 103, column 22 - line 107, column 22: " + [ $23.constructor.name ]);
   };
   var showSqlValue = function (v) {
       if (v instanceof SqlString) {
@@ -6357,14 +6833,14 @@ var PS = {};
       return function (second) {
           var f = function (tups) {
               return function (tup) {
-                  var $36 = Data_Tuple.lookup(Data_Foldable.foldableArray)(Meals_Slots.eqSlot)(Data_Tuple.fst(tup))(tups);
-                  if ($36 instanceof Data_Maybe.Nothing) {
+                  var $32 = Data_Tuple.lookup(Data_Foldable.foldableArray)(Meals_Slots.eqSlot)(Data_Tuple.fst(tup))(tups);
+                  if ($32 instanceof Data_Maybe.Nothing) {
                       return Data_Array.cons(tup)(tups);
                   };
-                  if ($36 instanceof Data_Maybe.Just) {
+                  if ($32 instanceof Data_Maybe.Just) {
                       return tups;
                   };
-                  throw new Error("Failed pattern match at Data.Database line 177, column 22 - line 179, column 21: " + [ $36.constructor.name ]);
+                  throw new Error("Failed pattern match at Data.Database line 211, column 22 - line 213, column 21: " + [ $32.constructor.name ]);
               };
           };
           return Data_Foldable.foldl(Data_Foldable.foldableArray)(f)(second)(first);
@@ -6387,11 +6863,13 @@ var PS = {};
   };
   var hydrateMenuSlotDate = function (m) {
       return Control_Bind.bind(Data_Either.bindEither)(Utils.maybeToEither("Day no invalid")(Data_Enum.toEnum(Data_Date_Component.boundedEnumWeekday)(m.day_no)))(function (v) {
-          return Control_Applicative.pure(Data_Either.applicativeEither)(new Meals_Slots.MenuSlotDate(v, m.weekNo));
+          return Control_Applicative.pure(Data_Either.applicativeEither)(new Meals_Slots.MenuSlotDate(v, m.week_no));
       });
   };
   var hydrateMealSlotDate = function (m) {
-      return Data_Functor.map(Data_Either.functorEither)(Meals_Slots.MealSlotDate.create)(Dates.fromDbString(m.date));
+      return Control_Bind.bind(Data_Either.bindEither)(Utils.maybeToEither("Date not present")(Data_Nullable.toMaybe(m.date)))(function (v) {
+          return Data_Functor.map(Data_Either.functorEither)(Meals_Slots.MealSlotDate.create)(Dates.fromDbString(v));
+      });
   };
   var hydrateAllergens = function (v) {
       if (v instanceof Data_Maybe.Just) {
@@ -6408,7 +6886,8 @@ var PS = {};
           name: m.name, 
           description: m.description, 
           allergens: hydrateAllergens(Data_Nullable.toMaybe(m.allergens)), 
-          photoPath: new Data_Maybe.Just(m.photo)
+          photoPath: new Data_Maybe.Just(m.photo), 
+          audioPath: Data_Nullable.toMaybe(m.audio)
       });
   };
   var hydrateMealAndSlot = function (hydrateSlotDate) {
@@ -6459,20 +6938,63 @@ var PS = {};
   };
   var updateSlot = function (v) {
       return function (mealId) {
-          var weekNo = Meals_Slots.unWeekNo(Partial_Unsafe.unsafePartial(function (dictPartial) {
-              return Data_Maybe.fromJust(dictPartial)(Meals_Slots.slotDateWeekNo(v.date));
-          }));
-          var dayNo = Partial_Unsafe.unsafePartial(function (dictPartial) {
-              return Data_Maybe.fromJust(dictPartial)(Control_Bind.bind(Data_Maybe.bindMaybe)(Meals_Slots.slotDateWeekDay(v.date))(function (v1) {
-                  return Control_Applicative.pure(Data_Maybe.applicativeMaybe)(Data_Enum.fromEnum(Data_Date_Component.boundedEnumWeekday)(v1));
-              }));
-          });
-          return executeSql$prime("INSERT OR REPLACE INTO meal_slots (day_no, week_no, mealtime, mealtype, meal_id) VALUES (?, ?, ?, ?, ?)")([ SqlNumber.create(Data_Int.toNumber(dayNo)), SqlNumber.create(Data_Int.toNumber(weekNo)), SqlString.create(Data_Show.show(Meals_Meals.showMealTime)(v.mealTime)), SqlString.create(Data_Show.show(Meals_Meals.showMealType)(v.mealType)), SqlNumber.create(Data_Int.toNumber(mealId)) ]);
+          if (v.date instanceof Meals_Slots.MenuSlotDate) {
+              return executeSql$prime("INSERT OR REPLACE INTO meal_slots (day_no, week_no, mealtime, mealtype, meal_id) VALUES (?, ?, ?, ?, ?)")([ SqlNumber.create(Data_Int.toNumber(Data_Enum.fromEnum(Data_Date_Component.boundedEnumWeekday)(v.date.value0))), SqlNumber.create(Data_Int.toNumber(Meals_Slots.unWeekNo(v.date.value1))), SqlString.create(Data_Show.show(Meals_Meals.showMealTime)(v.mealTime)), SqlString.create(Data_Show.show(Meals_Meals.showMealType)(v.mealType)), SqlNumber.create(Data_Int.toNumber(mealId)) ]);
+          };
+          if (v.date instanceof Meals_Slots.MealSlotDate) {
+              return executeSql$prime("INSERT OR REPLACE INTO meal_slots (date, mealtime, mealtype, meal_id) VALUES (?, ?, ?, ?)")([ new SqlDate(v.date.value0), SqlString.create(Data_Show.show(Meals_Meals.showMealTime)(v.mealTime)), SqlString.create(Data_Show.show(Meals_Meals.showMealType)(v.mealType)), SqlNumber.create(Data_Int.toNumber(mealId)) ]);
+          };
+          throw new Error("Failed pattern match at Data.Database line 145, column 3 - line 160, column 8: " + [ v.date.constructor.name ]);
       };
   };
   var fetchMeal = function (id) {
       return function (cb) {
           return executeSql("SELECT * FROM meals WHERE id = ?")([ SqlNumber.create(Data_Int.toNumber(id)) ])(mealCallback(cb));
+      };
+  };
+  var findMealForSlot = function (v) {
+      return function (cb) {
+          if (v.date instanceof Meals_Slots.MenuSlotDate) {
+              return executeSql("SELECT * FROM meal_slots INNER JOIN meals ON (meal_slots.meal_id = meals.id) WHERE day_no = ? AND week_no = ? AND mealtime = ? AND mealtype = ?")([ SqlNumber.create(Data_Int.toNumber(Data_Enum.fromEnum(Data_Date_Component.boundedEnumWeekday)(v.date.value0))), SqlNumber.create(Data_Int.toNumber(Meals_Slots.unWeekNo(v.date.value1))), SqlString.create(Data_Show.show(Meals_Meals.showMealTime)(v.mealTime)), SqlString.create(Data_Show.show(Meals_Meals.showMealType)(v.mealType)) ])(mealCallback(cb));
+          };
+          if (v.date instanceof Meals_Slots.MealSlotDate) {
+              return executeSql("SELECT * FROM meal_slots INNER JOIN meals ON (meal_slots.meal_id = meals.id) WHERE date = ? AND mealtime = ? AND mealtype = ?")([ SqlDate.create(v.date.value0), SqlString.create(Data_Show.show(Meals_Meals.showMealTime)(v.mealTime)), SqlString.create(Data_Show.show(Meals_Meals.showMealType)(v.mealType)) ])(function (meals) {
+                  var $62 = singleMeal(Data_Functor.map(Data_Functor.functorArray)(hydrateMeal)(meals));
+                  if ($62 instanceof Data_Maybe.Just) {
+                      return function __do() {
+                          Control_Monad_Eff_Console.log("Meal found")();
+                          Control_Monad_Eff_Console.logShow(Meals_Meals.showMeal)($62.value0)();
+                          return cb(new Data_Maybe.Just($62.value0))();
+                      };
+                  };
+                  if ($62 instanceof Data_Maybe.Nothing) {
+                      return function __do() {
+                          Control_Monad_Eff_Console.log("No meal found for slot")();
+                          Control_Monad_Eff_Console.logShow(Meals_Slots.showSlot)(v)();
+                          var $64 = Meals_Slots.mealSlotDateToMenuSlotDate(v.date.value0)(Meals_Slots.weekNoFromDate(v.date.value0))(v.date);
+                          if ($64 instanceof Data_Either.Left) {
+                              Control_Monad_Eff_Console.error("Error converting meal slot to menu slot")();
+                              return cb(Data_Maybe.Nothing.value)();
+                          };
+                          if ($64 instanceof Data_Either.Right) {
+                              return findMealForSlot((function () {
+                                  var $66 = {};
+                                  for (var $67 in v) {
+                                      if ({}.hasOwnProperty.call(v, $67)) {
+                                          $66[$67] = v[$67];
+                                      };
+                                  };
+                                  $66.date = $64.value0;
+                                  return $66;
+                              })())(cb)();
+                          };
+                          throw new Error("Failed pattern match at Data.Database line 185, column 9 - line 189, column 91: " + [ $64.constructor.name ]);
+                      };
+                  };
+                  throw new Error("Failed pattern match at Data.Database line 177, column 15 - line 189, column 91: " + [ $62.constructor.name ]);
+              });
+          };
+          throw new Error("Failed pattern match at Data.Database line 162, column 70 - line 189, column 91: " + [ v.date.constructor.name ]);
       };
   };
   var findMealsForWeek = function (wn) {
@@ -6495,36 +7017,23 @@ var PS = {};
           };
       };
   };
-  var findMealsForCalendarWeek = function (d) {
-      return function (cb) {
-          return findMealsForWeek(Meals_Slots.weekNoFromDate(d))(hydrateMealSlotDate)(function (mealSlotTups) {
-              return findOverriddenMealsBetweenDates(d)(Dates.addDays(7)(d))(function (overriddenMealSlotTups) {
-                  return cb(overrideMealSlots(mealSlotTups)(overriddenMealSlotTups));
-              });
-          });
-      };
-  };
-  var getMealForSlot = function (v) {
-      return function (cb) {
-          var weekNo = Meals_Slots.unWeekNo(Partial_Unsafe.unsafePartial(function (dictPartial) {
-              return Data_Maybe.fromJust(dictPartial)(Meals_Slots.slotDateWeekNo(v.date));
-          }));
-          var dayNo = Partial_Unsafe.unsafePartial(function (dictPartial) {
-              return Data_Maybe.fromJust(dictPartial)(Control_Bind.bind(Data_Maybe.bindMaybe)(Meals_Slots.slotDateWeekDay(v.date))(function (v1) {
-                  return Control_Applicative.pure(Data_Maybe.applicativeMaybe)(Data_Enum.fromEnum(Data_Date_Component.boundedEnumWeekday)(v1));
-              }));
-          });
-          return executeSql("SELECT * FROM meal_slots INNER JOIN meals ON (meal_slots.meal_id = meals.id) WHERE day_no = ? AND week_no = ? AND mealtime = ? AND mealtype = ?")([ SqlNumber.create(Data_Int.toNumber(dayNo)), SqlNumber.create(Data_Int.toNumber(weekNo)), SqlString.create(Data_Show.show(Meals_Meals.showMealTime)(v.mealTime)), SqlString.create(Data_Show.show(Meals_Meals.showMealType)(v.mealType)) ])(mealCallback(cb));
-      };
-  };
   var loadAllMeals = function (cb) {
       return executeSql("SELECT * FROM meals")([  ])(mealsCallback(cb));
   };
   var dehydrateAllergens = Data_String.joinWith(",");
   var insertMeal = function (v) {
-      return executeSql$prime("INSERT INTO meals (name, description, photo, allergens) VALUES (?, ?, ?, ?)")([ new SqlString(v.name), new SqlString(v.description), new SqlString(Partial_Unsafe.unsafePartial(function (dictPartial) {
+      var audioValue = function (p) {
+          if (p instanceof Data_Maybe.Nothing) {
+              return "";
+          };
+          if (p instanceof Data_Maybe.Just) {
+              return p.value0;
+          };
+          throw new Error("Failed pattern match at Data.Database line 124, column 24 - line 126, column 28: " + [ p.constructor.name ]);
+      };
+      return executeSql$prime("INSERT INTO meals (name, description, photo, audio, allergens) VALUES (?, ?, ?, ?, ?)")([ new SqlString(v.name), new SqlString(v.description), new SqlString(Partial_Unsafe.unsafePartial(function (dictPartial) {
           return Data_Maybe.fromJust(dictPartial)(v.photoPath);
-      })), SqlString.create(dehydrateAllergens(v.allergens)) ]);
+      })), SqlString.create(audioValue(v.audioPath)), SqlString.create(dehydrateAllergens(v.allergens)) ]);
   };
   var updateMeal = function (v) {
       return executeSql$prime("UPDATE meals SET name = ?, description = ?, photo = ?, allergens = ? WHERE id = ?")([ new SqlString(v.name), new SqlString(v.description), SqlString.create(Partial_Unsafe.unsafePartial(function (dictPartial) {
@@ -6540,19 +7049,37 @@ var PS = {};
       if (v.id instanceof Data_Maybe.Just) {
           return updateMeal(v);
       };
-      throw new Error("Failed pattern match at Data.Database line 126, column 28 - line 128, column 29: " + [ v.id.constructor.name ]);
+      throw new Error("Failed pattern match at Data.Database line 139, column 28 - line 141, column 29: " + [ v.id.constructor.name ]);
+  };
+  var convertToMealSlotDate = function (d) {
+      return function (m) {
+          return Control_Bind.bind(Data_Either.bindEither)(hydrateMenuSlotDate(m))(function (v) {
+              return Meals_Slots.menuSlotDateToMealSlotDate(d)(v);
+          });
+      };
+  };
+  var findMealsForCalendarWeek = function (d) {
+      return function (cb) {
+          return findMealsForWeek(Meals_Slots.weekNoFromDate(d))(convertToMealSlotDate(d))(function (mealSlotTups) {
+              return findOverriddenMealsBetweenDates(d)(Dates.addDays(7)(d))(function (overriddenMealSlotTups) {
+                  var allTups = overrideMealSlots(mealSlotTups)(overriddenMealSlotTups);
+                  return cb(allTups);
+              });
+          });
+      };
   };
   exports["SqlString"] = SqlString;
   exports["SqlNumber"] = SqlNumber;
   exports["SqlDate"] = SqlDate;
+  exports["convertToMealSlotDate"] = convertToMealSlotDate;
   exports["dehydrateAllergens"] = dehydrateAllergens;
   exports["executeSql"] = executeSql;
   exports["fetchMeal"] = fetchMeal;
+  exports["findMealForSlot"] = findMealForSlot;
   exports["findMealsForCalendarWeek"] = findMealsForCalendarWeek;
   exports["findMealsForWeek"] = findMealsForWeek;
   exports["findOverriddenMealsBetweenDates"] = findOverriddenMealsBetweenDates;
   exports["fromSqlValue"] = fromSqlValue;
-  exports["getMealForSlot"] = getMealForSlot;
   exports["hydrateAllergens"] = hydrateAllergens;
   exports["hydrateMeal"] = hydrateMeal;
   exports["hydrateMealAndSlot"] = hydrateMealAndSlot;
@@ -6734,21 +7261,6 @@ var PS = {};
   exports["push"] = $foreign.push;
 })(PS["ReactNative.Components.Navigator"] = PS["ReactNative.Components.Navigator"] || {});
 (function(exports) {
-  // Generated by psc version 0.10.5
-  "use strict";
-  var ReactNative_PropTypes = PS["ReactNative.PropTypes"];
-  var ReactNative_PropTypes_Color = PS["ReactNative.PropTypes.Color"];
-  var ReactNative_Styles = PS["ReactNative.Styles"];  
-  var underline = "underline";                                                
-  var textDecorationLine = ReactNative_Styles.unsafeStyleProp("textDecorationLine");
-  var fontSize = ReactNative_Styles.unsafeStyleProp("fontSize");
-  var color = ReactNative_Styles.unsafeStyleProp("color");
-  exports["color"] = color;
-  exports["fontSize"] = fontSize;
-  exports["textDecorationLine"] = textDecorationLine;
-  exports["underline"] = underline;
-})(PS["ReactNative.Styles.Text"] = PS["ReactNative.Styles.Text"] || {});
-(function(exports) {
   exports.replace=function(this_){
   return function(s){
   return function(){
@@ -6764,10 +7276,32 @@ var PS = {};
   var Prelude = PS["Prelude"];
   var Control_Monad_Eff = PS["Control.Monad.Eff"];
   var Data_DateTime = PS["Data.DateTime"];
+  var Data_Function_Eff = PS["Data.Function.Eff"];
+  var Dates = PS["Dates"];
   var Meals_Meals = PS["Meals.Meals"];
   var Meals_Slots = PS["Meals.Slots"];
   var React = PS["React"];
-  var ReactNative_Components_Navigator = PS["ReactNative.Components.Navigator"];        
+  var ReactNative_Components_Navigator = PS["ReactNative.Components.Navigator"];
+  var Control_Bind = PS["Control.Bind"];        
+  var Home = (function () {
+      function Home() {
+
+      };
+      Home.value = new Home();
+      return Home;
+  })();
+  var Display = (function () {
+      function Display(value0, value1) {
+          this.value0 = value0;
+          this.value1 = value1;
+      };
+      Display.create = function (value0) {
+          return function (value1) {
+              return new Display(value0, value1);
+          };
+      };
+      return Display;
+  })();
   var MenuAdmin = (function () {
       function MenuAdmin(value0) {
           this.value0 = value0;
@@ -6813,11 +7347,22 @@ var PS = {};
       };
       return TakePhoto;
   })();
+  var goToAdmin = function (nav) {
+      return Data_Function_Eff.mkEffFn1(function (v) {
+          return function __do() {
+              var v1 = Dates.latestMonday();
+              return $foreign.replace(nav)(new CalendarView(v1))();
+          };
+      });
+  };
+  exports["Home"] = Home;
+  exports["Display"] = Display;
   exports["MenuAdmin"] = MenuAdmin;
   exports["CalendarView"] = CalendarView;
   exports["SelectMeal"] = SelectMeal;
   exports["MealView"] = MealView;
   exports["TakePhoto"] = TakePhoto;
+  exports["goToAdmin"] = goToAdmin;
   exports["replace"] = $foreign.replace;
 })(PS["Routes"] = PS["Routes"] || {});
 (function(exports) {
@@ -6826,7 +7371,9 @@ var PS = {};
   var Prelude = PS["Prelude"];
   var Components_Icon = PS["Components.Icon"];
   var Data_Database = PS["Data.Database"];
+  var Data_Date = PS["Data.Date"];
   var Data_DateTime = PS["Data.DateTime"];
+  var Data_Enum = PS["Data.Enum"];
   var Data_Function_Eff = PS["Data.Function.Eff"];
   var Data_Maybe = PS["Data.Maybe"];
   var Data_Tuple = PS["Data.Tuple"];
@@ -6845,12 +7392,31 @@ var PS = {};
   var ReactNative_Styles_Text = PS["ReactNative.Styles.Text"];
   var Routes = PS["Routes"];
   var Data_Function = PS["Data.Function"];
+  var Data_Ring = PS["Data.Ring"];
+  var Data_Date_Component = PS["Data.Date.Component"];
   var Data_Foldable = PS["Data.Foldable"];
   var Data_Show = PS["Data.Show"];
-  var Data_Date_Component = PS["Data.Date.Component"];
   var Control_Bind = PS["Control.Bind"];
   var Control_Monad_Eff = PS["Control.Monad.Eff"];
   var Control_Applicative = PS["Control.Applicative"];        
+  var CalendarMenuArgs = (function () {
+      function CalendarMenuArgs(value0) {
+          this.value0 = value0;
+      };
+      CalendarMenuArgs.create = function (value0) {
+          return new CalendarMenuArgs(value0);
+      };
+      return CalendarMenuArgs;
+  })();
+  var CalendarDateArgs = (function () {
+      function CalendarDateArgs(value0) {
+          this.value0 = value0;
+      };
+      CalendarDateArgs.create = function (value0) {
+          return new CalendarDateArgs(value0);
+      };
+      return CalendarDateArgs;
+  })();
   var mealTitleStyle = ReactNative_Styles.styles([ ReactNative_Styles_Text.fontSize(16), ReactNative_Styles.borderBottomColor(ReactNative_PropTypes_Color.rgbi(2899536)), ReactNative_Styles.borderBottomWidth(ReactNative_Styles.hairlineWidth), ReactNative_Styles.marginBottom(5) ]);
   var mealStyles = function (mealType) {
       var mealTypeColour = (function () {
@@ -6860,17 +7426,30 @@ var PS = {};
           if (mealType instanceof Meals_Meals.Vegetarian) {
               return ReactNative_PropTypes_Color.green;
           };
-          throw new Error("Failed pattern match at Components.Calendar line 134, column 26 - line 136, column 30: " + [ mealType.constructor.name ]);
+          throw new Error("Failed pattern match at Components.Calendar line 127, column 26 - line 129, column 30: " + [ mealType.constructor.name ]);
       })();
       return ReactNative_Styles.styles([ ReactNative_Styles.borderLeftColor(mealTypeColour), ReactNative_Styles.borderLeftWidth(2), ReactNative_Styles.padding(12), ReactNative_Styles.backgroundColor(ReactNative_PropTypes_Color.rgbi(16250871)), ReactNative_Styles.marginBottom(10), ReactNative_Styles.flex(1), ReactNative_Styles_Flex.alignSelf(ReactNative_Styles_Flex.stretch) ]);
   };
-  var getSlot = function (d) {
-      return function (mt) {
-          return function (mti) {
-              return {
-                  date: new Meals_Slots.MenuSlotDate(d, Meals_Slots.weekNo(1)), 
-                  mealType: mt, 
-                  mealTime: mti
+  var getSlot = function (v) {
+      return function (d) {
+          return function (mt) {
+              return function (mti) {
+                  if (v instanceof CalendarMenuArgs) {
+                      return {
+                          date: new Meals_Slots.MenuSlotDate(d, v.value0), 
+                          mealType: mt, 
+                          mealTime: mti
+                      };
+                  };
+                  if (v instanceof CalendarDateArgs) {
+                      var date$prime = Dates.addDays(Data_Enum.fromEnum(Data_Date_Component.boundedEnumWeekday)(d) - 1)(v.value0);
+                      return {
+                          date: new Meals_Slots.MealSlotDate(date$prime), 
+                          mealType: mt, 
+                          mealTime: mti
+                      };
+                  };
+                  throw new Error("Failed pattern match at Components.Calendar line 30, column 1 - line 30, column 101: " + [ v.constructor.name, d.constructor.name, mt.constructor.name, mti.constructor.name ]);
               };
           };
       };
@@ -6884,45 +7463,45 @@ var PS = {};
                   var navLinkRightStyles = ReactNative_Styles.styles([ ReactNative_Styles_Flex.flexDirection(ReactNative_Styles_Flex.row), ReactNative_Styles_Flex.alignItems(ReactNative_Styles_Flex.flexEnd(ReactNative_Styles_Flex.alignmentStartEnd)) ]);
                   var navLinkLeftStyles = ReactNative_Styles.styles([ ReactNative_Styles_Flex.flexDirection(ReactNative_Styles_Flex.row), ReactNative_Styles_Flex.alignItems(ReactNative_Styles_Flex.flexStart(ReactNative_Styles_Flex.alignmentStartEnd)) ]);
                   return ReactNative_Components_View.view(navStyles)([ ReactNative_Components_View.view(navLinkLeftStyles)([ Components_Icon.icon(function (v) {
-                      var $14 = {};
-                      for (var $15 in v) {
-                          if ({}.hasOwnProperty.call(v, $15)) {
-                              $14[$15] = v[$15];
+                      var $21 = {};
+                      for (var $22 in v) {
+                          if ({}.hasOwnProperty.call(v, $22)) {
+                              $21[$22] = v[$22];
                           };
                       };
-                      $14.size = 16;
-                      $14.name = "angle-left";
-                      return $14;
+                      $21.size = 16;
+                      $21.name = "angle-left";
+                      return $21;
                   }), ReactNative_Components_Text["text'"](function (v) {
-                      var $17 = {};
-                      for (var $18 in v) {
-                          if ({}.hasOwnProperty.call(v, $18)) {
-                              $17[$18] = v[$18];
+                      var $24 = {};
+                      for (var $25 in v) {
+                          if ({}.hasOwnProperty.call(v, $25)) {
+                              $24[$25] = v[$25];
                           };
                       };
-                      $17.onPress = back;
-                      $17.style = ReactNative_Styles.styles([ ReactNative_Styles.marginLeft(10), ReactNative_Styles_Text.textDecorationLine(ReactNative_Styles_Text.underline) ]);
-                      return $17;
+                      $24.onPress = back;
+                      $24.style = ReactNative_Styles.styles([ ReactNative_Styles.marginLeft(10), ReactNative_Styles_Text.textDecorationLine(ReactNative_Styles_Text.underline) ]);
+                      return $24;
                   })("Previous 7 days") ]), ReactNative_Components_Text.text_(currentText), ReactNative_Components_View.view(navLinkRightStyles)([ ReactNative_Components_Text["text'"](function (v) {
-                      var $20 = {};
-                      for (var $21 in v) {
-                          if ({}.hasOwnProperty.call(v, $21)) {
-                              $20[$21] = v[$21];
+                      var $27 = {};
+                      for (var $28 in v) {
+                          if ({}.hasOwnProperty.call(v, $28)) {
+                              $27[$28] = v[$28];
                           };
                       };
-                      $20.onPress = next;
-                      $20.style = ReactNative_Styles.styles([ ReactNative_Styles.marginRight(10), ReactNative_Styles_Text.textDecorationLine(ReactNative_Styles_Text.underline) ]);
-                      return $20;
+                      $27.onPress = next;
+                      $27.style = ReactNative_Styles.styles([ ReactNative_Styles.marginRight(10), ReactNative_Styles_Text.textDecorationLine(ReactNative_Styles_Text.underline) ]);
+                      return $27;
                   })("Next 7 days"), Components_Icon.icon(function (v) {
-                      var $23 = {};
-                      for (var $24 in v) {
-                          if ({}.hasOwnProperty.call(v, $24)) {
-                              $23[$24] = v[$24];
+                      var $30 = {};
+                      for (var $31 in v) {
+                          if ({}.hasOwnProperty.call(v, $31)) {
+                              $30[$31] = v[$31];
                           };
                       };
-                      $23.size = 16;
-                      $23.name = "angle-right";
-                      return $23;
+                      $30.size = 16;
+                      $30.name = "angle-right";
+                      return $30;
                   }) ]) ]);
               };
           };
@@ -6942,29 +7521,29 @@ var PS = {};
                   return function (slot1) {
                       if (v1 instanceof Data_Maybe.Nothing) {
                           return ReactNative_Components_Touchable["touchableOpacity'"](function (v2) {
-                              var $32 = {};
-                              for (var $33 in v2) {
-                                  if ({}.hasOwnProperty.call(v2, $33)) {
-                                      $32[$33] = v2[$33];
+                              var $39 = {};
+                              for (var $40 in v2) {
+                                  if ({}.hasOwnProperty.call(v2, $40)) {
+                                      $39[$40] = v2[$40];
                                   };
                               };
-                              $32.onPress = setMeal(slot1);
-                              return $32;
+                              $39.onPress = setMeal(slot1);
+                              return $39;
                           })(ReactNative_Components_View.view(buttonStyles)([ ReactNative_Components_Text.text(buttonTextStyles)("Add") ]));
                       };
                       if (v1 instanceof Data_Maybe.Just) {
                           return ReactNative_Components_Touchable["touchableOpacity'"](function (v2) {
-                              var $35 = {};
-                              for (var $36 in v2) {
-                                  if ({}.hasOwnProperty.call(v2, $36)) {
-                                      $35[$36] = v2[$36];
+                              var $42 = {};
+                              for (var $43 in v2) {
+                                  if ({}.hasOwnProperty.call(v2, $43)) {
+                                      $42[$43] = v2[$43];
                                   };
                               };
-                              $35.onPress = setMeal(slot1);
-                              return $35;
+                              $42.onPress = setMeal(slot1);
+                              return $42;
                           })(ReactNative_Components_Text.text_(v1.value0.name));
                       };
-                      throw new Error("Failed pattern match at Components.Calendar line 98, column 1 - line 108, column 67: " + [ v1.constructor.name, slot1.constructor.name ]);
+                      throw new Error("Failed pattern match at Components.Calendar line 92, column 1 - line 102, column 67: " + [ v1.constructor.name, slot1.constructor.name ]);
                   };
               };
               var maybeMeal = Data_Tuple.lookup(Data_Foldable.foldableArray)(Meals_Slots.eqSlot)(v)(week);
@@ -6972,64 +7551,68 @@ var PS = {};
           };
       };
   };
-  var calendar = function (loadMeals) {
-      return function (nav) {
-          var r = function (ctx) {
-              var rf = function (day) {
-                  return ReactNative_Components_View.view_([ ReactNative_Components_Text.text_(Data_Show.show(Data_Date_Component.showWeekday)(day)) ]);
-              };
-              var mealR = function (mealTime) {
-                  return function (week) {
-                      return function (day) {
-                          return ReactNative_Components_View.view_([ mealContainer(getSlot(day)(Meals_Meals.Vegetarian.value)(mealTime))(week)(nav), mealContainer(getSlot(day)(Meals_Meals.Meat.value)(mealTime))(week)(nav) ]);
+  var calendar = function (args) {
+      return function (loadMeals) {
+          return function (nav) {
+              var r = function (ctx) {
+                  var rf = function (day) {
+                      return ReactNative_Components_View.view_([ ReactNative_Components_Text.text_(Data_Show.show(Data_Date_Component.showWeekday)(day)) ]);
+                  };
+                  var mealR = function (mealTime) {
+                      return function (week) {
+                          return function (day) {
+                              return ReactNative_Components_View.view_([ mealContainer(getSlot(args)(day)(Meals_Meals.Vegetarian.value)(mealTime))(week)(nav), mealContainer(getSlot(args)(day)(Meals_Meals.Meat.value)(mealTime))(week)(nav) ]);
+                          };
                       };
                   };
+                  return function __do() {
+                      var v = React.readState(ctx)();
+                      return ReactNative_Components_View.view_([ ReactNative_Components_ListView["listView'"](function (v1) {
+                          var $47 = {};
+                          for (var $48 in v1) {
+                              if ({}.hasOwnProperty.call(v1, $48)) {
+                                  $47[$48] = v1[$48];
+                              };
+                          };
+                          $47.contentContainerStyle = ccs;
+                          return $47;
+                      })(ReactNative_Components_ListView.listViewDataSource(Dates.allDays))(ReactNative_Components_ListView.rowRenderer(rf)), ReactNative_Components_Text.text(mealTitleStyle)("Lunch"), ReactNative_Components_ListView["listView'"](function (v1) {
+                          var $50 = {};
+                          for (var $51 in v1) {
+                              if ({}.hasOwnProperty.call(v1, $51)) {
+                                  $50[$51] = v1[$51];
+                              };
+                          };
+                          $50.contentContainerStyle = ccs;
+                          return $50;
+                      })(ReactNative_Components_ListView.listViewDataSource(Dates.allDays))(ReactNative_Components_ListView.rowRenderer(mealR(Meals_Meals.Lunch.value)(v))), ReactNative_Components_Text.text(mealTitleStyle)("Dinner"), ReactNative_Components_ListView["listView'"](function (v1) {
+                          var $53 = {};
+                          for (var $54 in v1) {
+                              if ({}.hasOwnProperty.call(v1, $54)) {
+                                  $53[$54] = v1[$54];
+                              };
+                          };
+                          $53.contentContainerStyle = ccs;
+                          return $53;
+                      })(ReactNative_Components_ListView.listViewDataSource(Dates.allDays))(ReactNative_Components_ListView.rowRenderer(mealR(Meals_Meals.Dinner.value)(v))) ]);
+                  };
               };
-              return function __do() {
-                  var v = React.readState(ctx)();
-                  return ReactNative_Components_View.view_([ ReactNative_Components_ListView["listView'"](function (v1) {
-                      var $40 = {};
-                      for (var $41 in v1) {
-                          if ({}.hasOwnProperty.call(v1, $41)) {
-                              $40[$41] = v1[$41];
-                          };
+              return React.createClass((function () {
+                  var $58 = React.spec([  ])(r);
+                  var $56 = {};
+                  for (var $57 in $58) {
+                      if ({}.hasOwnProperty.call($58, $57)) {
+                          $56[$57] = $58[$57];
                       };
-                      $40.contentContainerStyle = ccs;
-                      return $40;
-                  })(ReactNative_Components_ListView.listViewDataSource(Dates.allDays))(ReactNative_Components_ListView.rowRenderer(rf)), ReactNative_Components_Text.text(mealTitleStyle)("Lunch"), ReactNative_Components_ListView["listView'"](function (v1) {
-                      var $43 = {};
-                      for (var $44 in v1) {
-                          if ({}.hasOwnProperty.call(v1, $44)) {
-                              $43[$44] = v1[$44];
-                          };
-                      };
-                      $43.contentContainerStyle = ccs;
-                      return $43;
-                  })(ReactNative_Components_ListView.listViewDataSource(Dates.allDays))(ReactNative_Components_ListView.rowRenderer(mealR(Meals_Meals.Lunch.value)(v))), ReactNative_Components_Text.text(mealTitleStyle)("Dinner"), ReactNative_Components_ListView["listView'"](function (v1) {
-                      var $46 = {};
-                      for (var $47 in v1) {
-                          if ({}.hasOwnProperty.call(v1, $47)) {
-                              $46[$47] = v1[$47];
-                          };
-                      };
-                      $46.contentContainerStyle = ccs;
-                      return $46;
-                  })(ReactNative_Components_ListView.listViewDataSource(Dates.allDays))(ReactNative_Components_ListView.rowRenderer(mealR(Meals_Meals.Dinner.value)(v))) ]);
-              };
+                  };
+                  $56.componentDidMount = loadMeals;
+                  return $56;
+              })());
           };
-          return React.createClass((function () {
-              var $51 = React.spec([  ])(r);
-              var $49 = {};
-              for (var $50 in $51) {
-                  if ({}.hasOwnProperty.call($51, $50)) {
-                      $49[$50] = $51[$50];
-                  };
-              };
-              $49.componentDidMount = loadMeals;
-              return $49;
-          })());
       };
   };
+  exports["CalendarMenuArgs"] = CalendarMenuArgs;
+  exports["CalendarDateArgs"] = CalendarDateArgs;
   exports["buttonStyles"] = buttonStyles;
   exports["buttonTextStyles"] = buttonTextStyles;
   exports["calendar"] = calendar;
@@ -7073,7 +7656,7 @@ var PS = {};
   var header = function (nav) {
       var toCalendar = Data_Function_Eff.mkEffFn1(function (v) {
           return function __do() {
-              var v1 = Dates.currentDate();
+              var v1 = Dates.latestMonday();
               return Routes.replace(nav)(new Routes.CalendarView(v1))();
           };
       });
@@ -7086,25 +7669,35 @@ var PS = {};
       var headerStyles = ReactNative_Styles.styles([ ReactNative_Styles_Flex.flexDirection(ReactNative_Styles_Flex.row), ReactNative_Styles_Flex.alignItems(ReactNative_Styles_Flex.flexStart(ReactNative_Styles_Flex.alignmentStartEnd)), ReactNative_Styles.backgroundColor(ReactNative_PropTypes_Color.rgbi(15450938)), ReactNative_Styles.padding(15) ]);
       var buttonStyles = ReactNative_Styles.styles([ ReactNative_Styles.padding(15) ]);
       return ReactNative_Components_View.view(headerStyles)([ ReactNative_Components_View.view(logoStyles)([ ReactNative_Components_Text.text_("MAVIS") ]), ReactNative_Components_Touchable["touchableHighlight'"](function (v) {
-          var $8 = {};
-          for (var $9 in v) {
-              if ({}.hasOwnProperty.call(v, $9)) {
-                  $8[$9] = v[$9];
+          var $9 = {};
+          for (var $10 in v) {
+              if ({}.hasOwnProperty.call(v, $10)) {
+                  $9[$10] = v[$10];
               };
           };
-          $8.style = buttonStyles;
-          $8.onPress = navigateTo(new Routes.MenuAdmin(Meals_Slots.weekNo(1)));
-          return $8;
+          $9.style = buttonStyles;
+          $9.onPress = navigateTo(Routes.Home.value);
+          return $9;
+      })(ReactNative_Components_Text.text_("Home")), ReactNative_Components_Touchable["touchableHighlight'"](function (v) {
+          var $12 = {};
+          for (var $13 in v) {
+              if ({}.hasOwnProperty.call(v, $13)) {
+                  $12[$13] = v[$13];
+              };
+          };
+          $12.style = buttonStyles;
+          $12.onPress = navigateTo(new Routes.MenuAdmin(Meals_Slots.weekNo(1)));
+          return $12;
       })(ReactNative_Components_Text.text_("Menu")), ReactNative_Components_Touchable["touchableHighlight'"](function (v) {
-          var $11 = {};
-          for (var $12 in v) {
-              if ({}.hasOwnProperty.call(v, $12)) {
-                  $11[$12] = v[$12];
+          var $15 = {};
+          for (var $16 in v) {
+              if ({}.hasOwnProperty.call(v, $16)) {
+                  $15[$16] = v[$16];
               };
           };
-          $11.style = buttonStyles;
-          $11.onPress = toCalendar;
-          return $11;
+          $15.style = buttonStyles;
+          $15.onPress = toCalendar;
+          return $15;
       })(ReactNative_Components_Text.text_("Calendar")) ]);
   };
   exports["header"] = header;
@@ -7149,9 +7742,6 @@ var PS = {};
   var ReactNative_Styles_Flex = PS["ReactNative.Styles.Flex"];
   var ReactNative_Styles_Text = PS["ReactNative.Styles.Text"];
   var Data_Function = PS["Data.Function"];
-  var Control_Applicative = PS["Control.Applicative"];
-  var Control_Monad_Eff = PS["Control.Monad.Eff"];
-  var Data_Unit = PS["Data.Unit"];
   var Data_Semigroup = PS["Data.Semigroup"];        
   var placeholderStyles = [ ReactNative_Styles_Flex.flexDirection(ReactNative_Styles_Flex.column), ReactNative_Styles.height(300), ReactNative_Styles_Flex.alignItems(ReactNative_PropTypes.center(ReactNative_Styles_Flex.flexAlignmentCenter)), ReactNative_Styles_Flex.justifyContent(ReactNative_Styles_Flex.spaceAround), ReactNative_Styles.borderColor(ReactNative_PropTypes_Color.rgbi(13421772)), ReactNative_Styles.borderWidth(1) ];
   var selectStyles = {
@@ -7164,28 +7754,28 @@ var PS = {};
           return function (onPress) {
               if (v.photoPath instanceof Data_Maybe.Nothing) {
                   return ReactNative_Components_Touchable["touchableHighlight'"](function (v1) {
-                      var $9 = {};
-                      for (var $10 in v1) {
-                          if ({}.hasOwnProperty.call(v1, $10)) {
-                              $9[$10] = v1[$10];
+                      var $8 = {};
+                      for (var $9 in v1) {
+                          if ({}.hasOwnProperty.call(v1, $9)) {
+                              $8[$9] = v1[$9];
                           };
                       };
-                      $9.onPress = onPress;
-                      $9.style = s.touchableStyles;
-                      return $9;
+                      $8.onPress = onPress;
+                      $8.style = s.touchableStyles;
+                      return $8;
                   })(ReactNative_Components_View.view(s.placeholderStyles)([ ReactNative_Components_Text.text_("Take photo") ]));
               };
               if (v.photoPath instanceof Data_Maybe.Just) {
                   return ReactNative_Components_Touchable["touchableHighlight'"](function (v1) {
-                      var $12 = {};
-                      for (var $13 in v1) {
-                          if ({}.hasOwnProperty.call(v1, $13)) {
-                              $12[$13] = v1[$13];
+                      var $11 = {};
+                      for (var $12 in v1) {
+                          if ({}.hasOwnProperty.call(v1, $12)) {
+                              $11[$12] = v1[$12];
                           };
                       };
-                      $12.onPress = onPress;
-                      $12.style = s.touchableStyles;
-                      return $12;
+                      $11.onPress = onPress;
+                      $11.style = s.touchableStyles;
+                      return $11;
                   })(ReactNative_Components_Image.image(s.imageStyles)(ReactNative_PropTypes.uriSrc(v.photoPath.value0)));
               };
               throw new Error("Failed pattern match at Components.MealDetails line 63, column 37 - line 67, column 120: " + [ v.photoPath.constructor.name ]);
@@ -7194,9 +7784,7 @@ var PS = {};
   };
   var mealDetails = function (v) {
       return function (s) {
-          return ReactNative_Components_View.view_([ ReactNative_Components_Text.text(ReactNative_Styles.styles([ ReactNative_Styles_Text.fontSize(20) ]))(v.name), ReactNative_Components_Text.text_(v.description), mealPhoto(v)(s)(Data_Function_Eff.mkEffFn1(function (v1) {
-              return Control_Applicative.pure(Control_Monad_Eff.applicativeEff)(Data_Unit.unit);
-          })) ]);
+          return ReactNative_Components_View.view_([ ReactNative_Components_Text.text(ReactNative_Styles.styles([ ReactNative_Styles_Text.fontSize(20) ]))(v.name), ReactNative_Components_Text.text_(v.description) ]);
       };
   };
   var editStyles = {
@@ -7360,30 +7948,6 @@ var PS = {};
   };
   exports["textField"] = textField;
 })(PS["Components.TextField"] = PS["Components.TextField"] || {});
-(function(exports) {
-    "use strict";
-
-  exports.log = function (s) {
-    return function () {
-      console.log(s);
-      return {};
-    };
-  };
-})(PS["Control.Monad.Eff.Console"] = PS["Control.Monad.Eff.Console"] || {});
-(function(exports) {
-  // Generated by psc version 0.10.5
-  "use strict";
-  var $foreign = PS["Control.Monad.Eff.Console"];
-  var Control_Monad_Eff = PS["Control.Monad.Eff"];
-  var Data_Show = PS["Data.Show"];
-  var Data_Unit = PS["Data.Unit"];
-  var logShow = function (dictShow) {
-      return function (a) {
-          return $foreign.log(Data_Show.show(dictShow)(a));
-      };
-  };
-  exports["logShow"] = logShow;
-})(PS["Control.Monad.Eff.Console"] = PS["Control.Monad.Eff.Console"] || {});
 (function(exports) {const RN = require("react-native")
 
   exports.registerComponent = function(name){
@@ -7414,6 +7978,7 @@ var PS = {};
   var Components_Container = PS["Components.Container"];
   var Components_Header = PS["Components.Header"];
   var Control_Monad_Eff = PS["Control.Monad.Eff"];
+  var Control_Monad_Eff_Console = PS["Control.Monad.Eff.Console"];
   var Data_Database = PS["Data.Database"];
   var Data_Date = PS["Data.Date"];
   var Data_Function_Eff = PS["Data.Function.Eff"];
@@ -7448,12 +8013,129 @@ var PS = {};
           var back = Data_Function_Eff.mkEffFn1(function (v) {
               return Routes.replace(nav)(Routes.CalendarView.create(Dates.prevWeekStart(d)));
           });
-          return ReactNative_Components_View.view_([ Components_Header.header(nav), Components_Container.container([ Components_Calendar.calendarNav(nav)(back)(next)(currentText), React.createElement(Components_Calendar.calendar(loadMeals(d))(nav))(Data_Unit.unit)([  ]) ]) ]);
+          return ReactNative_Components_View.view_([ Components_Header.header(nav), Components_Container.container([ Components_Calendar.calendarNav(nav)(back)(next)(currentText), React.createElement(Components_Calendar.calendar(new Components_Calendar.CalendarDateArgs(d))(loadMeals(d))(nav))(Data_Unit.unit)([  ]) ]) ]);
       };
   };
   exports["loadMeals"] = loadMeals;
   exports["render"] = render;
 })(PS["Screens.CalendarView"] = PS["Screens.CalendarView"] || {});
+(function(exports) {
+  // Generated by psc version 0.10.5
+  "use strict";
+  var Prelude = PS["Prelude"];
+  var Components_Audio = PS["Components.Audio"];
+  var Components_Icon = PS["Components.Icon"];
+  var Control_Monad_Eff = PS["Control.Monad.Eff"];
+  var Data_Database = PS["Data.Database"];
+  var Data_Function_Eff = PS["Data.Function.Eff"];
+  var Data_Maybe = PS["Data.Maybe"];
+  var Meals_Meals = PS["Meals.Meals"];
+  var Meals_Slots = PS["Meals.Slots"];
+  var Partial_Unsafe = PS["Partial.Unsafe"];
+  var React = PS["React"];
+  var ReactNative_Components_Image = PS["ReactNative.Components.Image"];
+  var ReactNative_Components_Navigator = PS["ReactNative.Components.Navigator"];
+  var ReactNative_Components_Text = PS["ReactNative.Components.Text"];
+  var ReactNative_Components_Touchable = PS["ReactNative.Components.Touchable"];
+  var ReactNative_Components_View = PS["ReactNative.Components.View"];
+  var ReactNative_PropTypes = PS["ReactNative.PropTypes"];
+  var ReactNative_PropTypes_Color = PS["ReactNative.PropTypes.Color"];
+  var ReactNative_Styles = PS["ReactNative.Styles"];
+  var ReactNative_Styles_Flex = PS["ReactNative.Styles.Flex"];
+  var ReactNative_Styles_Text = PS["ReactNative.Styles.Text"];
+  var Routes = PS["Routes"];
+  var Data_Function = PS["Data.Function"];
+  var Control_Applicative = PS["Control.Applicative"];
+  var Data_Unit = PS["Data.Unit"];
+  var Data_Show = PS["Data.Show"];        
+  var goToSlot = function (nav) {
+      return function (slot) {
+          return Data_Function_Eff.mkEffFn1(function (v) {
+              return Data_Database.findMealForSlot(slot)(function (maybeMeal) {
+                  if (maybeMeal instanceof Data_Maybe.Nothing) {
+                      return Control_Applicative.pure(Control_Monad_Eff.applicativeEff)(Data_Unit.unit);
+                  };
+                  if (maybeMeal instanceof Data_Maybe.Just) {
+                      return Routes.replace(nav)(new Routes.Display(slot, maybeMeal.value0));
+                  };
+                  throw new Error("Failed pattern match at Screens.Display line 104, column 5 - line 106, column 45: " + [ maybeMeal.constructor.name ]);
+              });
+          });
+      };
+  };
+  var nextMeal = function (nav) {
+      return function (currentSlot) {
+          return goToSlot(nav)(Meals_Slots.toggleMealType(currentSlot));
+      };
+  };
+  var nextMealTime = function (nav) {
+      return function (currentSlot) {
+          return goToSlot(nav)(Meals_Slots.toggleMealTime(currentSlot));
+      };
+  };
+  var render = function (v) {
+      return function (v1) {
+          return function (nav) {
+              var widgetContainerStyles = ReactNative_Styles.styles([ ReactNative_Styles_Flex.flexDirection(ReactNative_Styles_Flex.row) ]);
+              var textContainerStyles = ReactNative_Styles.styles([ ReactNative_Styles.padding(20), ReactNative_Styles.backgroundColor(ReactNative_PropTypes_Color.white) ]);
+              var settingsIconStyles = ReactNative_Styles.styles([ ReactNative_Styles.position(ReactNative_Styles.absolute), ReactNative_Styles.top(15), ReactNative_Styles.left(15) ]);
+              var nextMealTextStyles = ReactNative_Styles.styles([ ReactNative_Styles_Text.textAlign(ReactNative_PropTypes.center(ReactNative_Styles_Text.centerTextAlign)), ReactNative_Styles_Text.fontSize(24) ]);
+              var nextMealStyles = ReactNative_Styles.styles([ ReactNative_Styles.flex(1), ReactNative_Styles.padding(20), ReactNative_Styles.backgroundColor(ReactNative_PropTypes_Color.red) ]);
+              var mealTimeStyles = ReactNative_Styles.styles([ ReactNative_Styles.backgroundColor(ReactNative_PropTypes_Color.white), ReactNative_Styles.flex(1), ReactNative_Styles.padding(20) ]);
+              var mealNameStyles = ReactNative_Styles.styles([ ReactNative_Styles_Text.fontSize(60), ReactNative_Styles_Text.textAlign(ReactNative_PropTypes.center(ReactNative_Styles_Text.centerTextAlign)) ]);
+              var imageStyles = ReactNative_Styles.styles([ ReactNative_Styles.flex(1), ReactNative_Styles.resizeMode(ReactNative_Styles.cover) ]);
+              var containerStyles = ReactNative_Styles.styles([ ReactNative_Styles.flex(1) ]);
+              var bottomContainerStyles = ReactNative_Styles.styles([ ReactNative_Styles.position(ReactNative_Styles.absolute), ReactNative_Styles.bottom(0), ReactNative_Styles.left(0), ReactNative_Styles.right(0) ]);
+              var audioButtonStyles = ReactNative_Styles.styles([ ReactNative_Styles.flex(1), ReactNative_Styles.backgroundColor(ReactNative_PropTypes_Color.green), ReactNative_Styles.padding(20) ]);
+              return ReactNative_Components_View.view(containerStyles)([ ReactNative_Components_Image.image(imageStyles)(ReactNative_PropTypes.uriSrc(Partial_Unsafe.unsafePartial(function (dictPartial) {
+                  return Data_Maybe.fromJust(dictPartial)(v1.photoPath);
+              }))), ReactNative_Components_View.view(settingsIconStyles)([ ReactNative_Components_Touchable["touchableOpacity'"](function (v2) {
+                  var $14 = {};
+                  for (var $15 in v2) {
+                      if ({}.hasOwnProperty.call(v2, $15)) {
+                          $14[$15] = v2[$15];
+                      };
+                  };
+                  $14.onPress = Routes.goToAdmin(nav);
+                  return $14;
+              })(Components_Icon.icon(function (v2) {
+                  var $17 = {};
+                  for (var $18 in v2) {
+                      if ({}.hasOwnProperty.call(v2, $18)) {
+                          $17[$18] = v2[$18];
+                      };
+                  };
+                  $17.name = "cog";
+                  $17.size = 36;
+                  $17.color = ReactNative_PropTypes_Color.black;
+                  return $17;
+              })) ]), ReactNative_Components_View.view(bottomContainerStyles)([ ReactNative_Components_View.view(textContainerStyles)([ ReactNative_Components_Text.text(mealNameStyles)(v1.name) ]), ReactNative_Components_View.view(widgetContainerStyles)([ ReactNative_Components_View.view(mealTimeStyles)([ ReactNative_Components_Touchable["touchableOpacity'"](function (v2) {
+                  var $20 = {};
+                  for (var $21 in v2) {
+                      if ({}.hasOwnProperty.call(v2, $21)) {
+                          $20[$21] = v2[$21];
+                      };
+                  };
+                  $20.onPress = nextMealTime(nav)(v);
+                  return $20;
+              })(ReactNative_Components_Text.text(ReactNative_Styles.styles([ ReactNative_Styles_Text.fontSize(24), ReactNative_Styles_Text.textAlign(ReactNative_PropTypes.center(ReactNative_Styles_Text.centerTextAlign)) ]))(Data_Show.show(Meals_Meals.showMealTime)(v.mealTime))) ]), ReactNative_Components_View.view(nextMealStyles)([ ReactNative_Components_Touchable["touchableOpacity'"](function (v2) {
+                  var $23 = {};
+                  for (var $24 in v2) {
+                      if ({}.hasOwnProperty.call(v2, $24)) {
+                          $23[$24] = v2[$24];
+                      };
+                  };
+                  $23.onPress = nextMeal(nav)(v);
+                  return $23;
+              })(ReactNative_Components_Text.text(nextMealTextStyles)("Next meal")) ]), ReactNative_Components_View.view(audioButtonStyles)([ React.createElement(Components_Audio.playback(v1))(Data_Unit.unit)([  ]) ]) ]) ]) ]);
+          };
+      };
+  };
+  exports["goToSlot"] = goToSlot;
+  exports["nextMeal"] = nextMeal;
+  exports["nextMealTime"] = nextMealTime;
+  exports["render"] = render;
+})(PS["Screens.Display"] = PS["Screens.Display"] || {});
 (function(exports) {
   // Generated by psc version 0.10.5
   "use strict";
@@ -7476,27 +8158,121 @@ var PS = {};
   // Generated by psc version 0.10.5
   "use strict";
   var Prelude = PS["Prelude"];
-  var Alerts_Alerts = PS["Alerts.Alerts"];
-  var Checkbox = PS["Checkbox"];
-  var Components_Container = PS["Components.Container"];
-  var Components_MealDetails = PS["Components.MealDetails"];
-  var Components_TextField = PS["Components.TextField"];
-  var Components_Header = PS["Components.Header"];
-  var Control_Monad_Eff = PS["Control.Monad.Eff"];
-  var Data_Argonaut = PS["Data.Argonaut"];
+  var Control_Monad_Eff_Console = PS["Control.Monad.Eff.Console"];
   var Data_Database = PS["Data.Database"];
-  var Data_Date = PS["Data.Date"];
-  var Data_DateTime = PS["Data.DateTime"];
-  var Data_Either = PS["Data.Either"];
   var Data_Function_Eff = PS["Data.Function.Eff"];
   var Data_Maybe = PS["Data.Maybe"];
+  var Dates = PS["Dates"];
   var Meals_Meals = PS["Meals.Meals"];
-  var Partial_Unsafe = PS["Partial.Unsafe"];
+  var Meals_Slots = PS["Meals.Slots"];
   var React = PS["React"];
   var ReactNative_Components_Button = PS["ReactNative.Components.Button"];
   var ReactNative_Components_Navigator = PS["ReactNative.Components.Navigator"];
   var ReactNative_Components_Text = PS["ReactNative.Components.Text"];
   var ReactNative_Components_View = PS["ReactNative.Components.View"];
+  var ReactNative_PropTypes = PS["ReactNative.PropTypes"];
+  var ReactNative_PropTypes_Color = PS["ReactNative.PropTypes.Color"];
+  var ReactNative_Styles = PS["ReactNative.Styles"];
+  var ReactNative_Styles_Flex = PS["ReactNative.Styles.Flex"];
+  var ReactNative_Styles_Text = PS["ReactNative.Styles.Text"];
+  var Routes = PS["Routes"];
+  var Control_Bind = PS["Control.Bind"];
+  var Control_Monad_Eff = PS["Control.Monad.Eff"];
+  var Data_Functor = PS["Data.Functor"];
+  var Data_Function = PS["Data.Function"];
+  var Control_Applicative = PS["Control.Applicative"];
+  var Data_Unit = PS["Data.Unit"];        
+  var errorMessage = function (v) {
+      if (v instanceof Data_Maybe.Nothing) {
+          return ReactNative_Components_View.view_([  ]);
+      };
+      if (v instanceof Data_Maybe.Just) {
+          var errorMessageStyles = ReactNative_Styles.styles([ ReactNative_Styles_Text.color(ReactNative_PropTypes_Color.red) ]);
+          var errorContainerStyles = ReactNative_Styles.styles([ ReactNative_Styles.marginVertical(10) ]);
+          return ReactNative_Components_View.view(errorContainerStyles)([ ReactNative_Components_Text.text(errorMessageStyles)(v.value0) ]);
+      };
+      throw new Error("Failed pattern match at Screens.Home line 65, column 1 - line 65, column 32: " + [ v.constructor.name ]);
+  };
+  var homeClass = function (nav) {
+      var r = function (ctx) {
+          var titleTextStyles = ReactNative_Styles.styles([ ReactNative_Styles_Text.fontSize(36) ]);
+          var goToFrontEnd = Data_Function_Eff.mkEffFn1(function (v) {
+              return function __do() {
+                  var v1 = Data_Functor.map(Control_Monad_Eff.functorEff)(Meals_Slots.nextSlot)(Dates.currentDateTime)();
+                  return Data_Database.findMealForSlot(v1)(function (maybe) {
+                      if (maybe instanceof Data_Maybe.Nothing) {
+                          return function __do() {
+                              React.writeState(ctx)(new Data_Maybe.Just("The next meal has not been set!  Please enter admin mode and set the meals for today."))();
+                              return Data_Unit.unit;
+                          };
+                      };
+                      if (maybe instanceof Data_Maybe.Just) {
+                          return Routes.replace(nav)(new Routes.Display(v1, maybe.value0));
+                      };
+                      throw new Error("Failed pattern match at Screens.Home line 40, column 54 - line 44, column 67: " + [ maybe.constructor.name ]);
+                  })();
+              };
+          });
+          var containerStyles = ReactNative_Styles.styles([ ReactNative_Styles_Flex.flexDirection(ReactNative_Styles_Flex.column), ReactNative_Styles_Flex.justifyContent(ReactNative_Styles_Flex.spaceAround), ReactNative_Styles_Flex.alignItems(ReactNative_PropTypes.center(ReactNative_Styles_Flex.flexAlignmentCenter)), ReactNative_Styles.paddingTop(50) ]);
+          var buttonContainerStyles = ReactNative_Styles.styles([ ReactNative_Styles_Flex.flexDirection(ReactNative_Styles_Flex.row), ReactNative_Styles_Flex.justifyContent(ReactNative_Styles_Flex.spaceBetween), ReactNative_Styles_Flex.alignItems(ReactNative_PropTypes.center(ReactNative_Styles_Flex.flexAlignmentCenter)), ReactNative_Styles.marginTop(30) ]);
+          return function __do() {
+              var v = React.readState(ctx)();
+              return ReactNative_Components_View.view(containerStyles)([ ReactNative_Components_Text.text(titleTextStyles)("MAVIS"), errorMessage(v), ReactNative_Components_View.view(buttonContainerStyles)([ ReactNative_Components_Button["button'"](function (v1) {
+                  var $13 = {};
+                  for (var $14 in v1) {
+                      if ({}.hasOwnProperty.call(v1, $14)) {
+                          $13[$14] = v1[$14];
+                      };
+                  };
+                  $13.color = ReactNative_PropTypes_Color.rgbi(14911509);
+                  $13.onPress = goToFrontEnd;
+                  return $13;
+              })("Display mode"), ReactNative_Components_Button["button'"](function (v1) {
+                  var $16 = {};
+                  for (var $17 in v1) {
+                      if ({}.hasOwnProperty.call(v1, $17)) {
+                          $16[$17] = v1[$17];
+                      };
+                  };
+                  $16.onPress = Routes.goToAdmin(nav);
+                  return $16;
+              })("Admin mode") ]) ]);
+          };
+      };
+      return React.createClass(React.spec(Data_Maybe.Nothing.value)(r));
+  };
+  var render = function (nav) {
+      return React.createElement(homeClass(nav))(Data_Unit.unit)([  ]);
+  };
+  exports["errorMessage"] = errorMessage;
+  exports["homeClass"] = homeClass;
+  exports["render"] = render;
+})(PS["Screens.Home"] = PS["Screens.Home"] || {});
+(function(exports) {
+  // Generated by psc version 0.10.5
+  "use strict";
+  var Prelude = PS["Prelude"];
+  var Alerts_Alerts = PS["Alerts.Alerts"];
+  var Components_Audio = PS["Components.Audio"];
+  var Checkbox = PS["Checkbox"];
+  var Components_Container = PS["Components.Container"];
+  var Components_Header = PS["Components.Header"];
+  var Components_MealDetails = PS["Components.MealDetails"];
+  var Components_TextField = PS["Components.TextField"];
+  var Control_Monad_Eff = PS["Control.Monad.Eff"];
+  var Data_Database = PS["Data.Database"];
+  var Data_Date = PS["Data.Date"];
+  var Data_Either = PS["Data.Either"];
+  var Data_Function_Eff = PS["Data.Function.Eff"];
+  var Data_Maybe = PS["Data.Maybe"];
+  var Data_Nullable = PS["Data.Nullable"];
+  var Meals_Meals = PS["Meals.Meals"];
+  var React = PS["React"];
+  var ReactNative_Components_Button = PS["ReactNative.Components.Button"];
+  var ReactNative_Components_Navigator = PS["ReactNative.Components.Navigator"];
+  var ReactNative_Components_Text = PS["ReactNative.Components.Text"];
+  var ReactNative_Components_View = PS["ReactNative.Components.View"];
+  var ReactNative_PropTypes = PS["ReactNative.PropTypes"];
   var ReactNative_PropTypes_Color = PS["ReactNative.PropTypes.Color"];
   var ReactNative_Styles = PS["ReactNative.Styles"];
   var ReactNative_Styles_Flex = PS["ReactNative.Styles.Flex"];
@@ -7507,33 +8283,54 @@ var PS = {};
   var Control_Applicative = PS["Control.Applicative"];
   var Data_Unit = PS["Data.Unit"];
   var Data_HeytingAlgebra = PS["Data.HeytingAlgebra"];
+  var mealAudio = function (v) {
+      return function (ctx) {
+          var audioTaken = function (path) {
+              return React.transformState(ctx)(function (state) {
+                  var $22 = {};
+                  for (var $23 in state) {
+                      if ({}.hasOwnProperty.call(state, $23)) {
+                          $22[$23] = state[$23];
+                      };
+                  };
+                  $22.meal = Meals_Meals.setAudioPath(path)(v);
+                  return $22;
+              });
+          };
+          var audioContainerStyles = ReactNative_Styles.styles([ ReactNative_Styles.flex(1), ReactNative_Styles.marginTop(20), ReactNative_Styles.borderColor(ReactNative_PropTypes_Color.rgbi(13421772)), ReactNative_Styles.borderWidth(1) ]);
+          return ReactNative_Components_View.view(audioContainerStyles)([ React.createElement(Components_Audio.audioClass)({
+              onRecorded: Data_Function_Eff.mkEffFn1(audioTaken), 
+              audioPath: Data_Nullable.toNullable(v.audioPath)
+          })([  ]) ]);
+      };
+  };
   var allergenCheckboxes = function (meal) {
       return function (ctx) {
           var onChangeAllergen = function (name) {
               return function (checked) {
                   return React.transformState(ctx)(function (st) {
-                      var $21 = {};
-                      for (var $22 in st) {
-                          if ({}.hasOwnProperty.call(st, $22)) {
-                              $21[$22] = st[$22];
+                      var $25 = {};
+                      for (var $26 in st) {
+                          if ({}.hasOwnProperty.call(st, $26)) {
+                              $25[$26] = st[$26];
                           };
                       };
-                      $21.meal = Meals_Meals.updateAllergen(checked)(name)(st.meal);
-                      return $21;
+                      $25.meal = Meals_Meals.updateAllergen(checked)(name)(st.meal);
+                      return $25;
                   });
               };
           };
           var el = function (name) {
               return Checkbox.checkbox(function (v) {
-                  var $24 = {};
-                  for (var $25 in v) {
-                      if ({}.hasOwnProperty.call(v, $25)) {
-                          $24[$25] = v[$25];
+                  var $28 = {};
+                  for (var $29 in v) {
+                      if ({}.hasOwnProperty.call(v, $29)) {
+                          $28[$29] = v[$29];
                       };
                   };
-                  $24.onChange = Data_Function_Eff.mkEffFn1(onChangeAllergen(name));
-                  $24.checked = Meals_Meals.hasAllergen(name)(meal);
-                  return $24;
+                  $28.onChange = Data_Function_Eff.mkEffFn1(onChangeAllergen(name));
+                  $28.checked = Meals_Meals.hasAllergen(name)(meal);
+                  return $28;
               })(name);
           };
           return ReactNative_Components_View.view_(Data_Functor.map(Data_Functor.functorArray)(el)(Meals_Meals.allAllergens));
@@ -7545,15 +8342,15 @@ var PS = {};
               var updateMeal = function (set) {
                   return function (text) {
                       return React.transformState(ctx)(function (st) {
-                          var $27 = {};
-                          for (var $28 in st) {
-                              if ({}.hasOwnProperty.call(st, $28)) {
-                                  $27[$28] = st[$28];
+                          var $31 = {};
+                          for (var $32 in st) {
+                              if ({}.hasOwnProperty.call(st, $32)) {
+                                  $31[$32] = st[$32];
                               };
                           };
-                          $27.meal = set(text)(st.meal);
-                          $27.hasChanged = true;
-                          return $27;
+                          $31.meal = set(text)(st.meal);
+                          $31.hasChanged = true;
+                          return $31;
                       });
                   };
               };
@@ -7630,18 +8427,7 @@ var PS = {};
                       placeholder: "Description", 
                       onChange: Data_Function_Eff.mkEffFn1(updateMeal(Meals_Meals.setDescription)), 
                       error: Data_Maybe.Nothing.value
-                  }) ]), ReactNative_Components_View.view(ReactNative_Styles.styles([  ]))([ allergenCheckboxes(v.meal)(ctx) ]) ]), ReactNative_Components_View.view(columnStyles)([ Components_MealDetails.mealPhoto(v.meal)(Components_MealDetails.editStyles)(onPressMealPhoto(v.meal)), ReactNative_Components_Text["text'"](function (v1) {
-                      var $43 = {};
-                      for (var $44 in v1) {
-                          if ({}.hasOwnProperty.call(v1, $44)) {
-                              $43[$44] = v1[$44];
-                          };
-                      };
-                      $43.onPress = Data_Function_Eff.mkEffFn1(function (v2) {
-                          return Routes.replace(nav)(new Routes.TakePhoto(v.meal));
-                      });
-                      return $43;
-                  })("Add audio"), ReactNative_Components_View.view(buttonContainerStyles)([ ReactNative_Components_View.view(buttonViewStyles)([ ReactNative_Components_Button["button'"](function (v1) {
+                  }) ]), ReactNative_Components_View.view(ReactNative_Styles.styles([  ]))([ allergenCheckboxes(v.meal)(ctx) ]) ]), ReactNative_Components_View.view(columnStyles)([ Components_MealDetails.mealPhoto(v.meal)(Components_MealDetails.editStyles)(onPressMealPhoto(v.meal)), mealAudio(v.meal)(ctx), ReactNative_Components_View.view(buttonContainerStyles)([ ReactNative_Components_View.view(buttonViewStyles)([ ReactNative_Components_Button["button'"](function (v1) {
                       var $46 = {};
                       for (var $47 in v1) {
                           if ({}.hasOwnProperty.call(v1, $47)) {
@@ -7686,6 +8472,7 @@ var PS = {};
       };
   };
   exports["allergenCheckboxes"] = allergenCheckboxes;
+  exports["mealAudio"] = mealAudio;
   exports["mealDetail"] = mealDetail;
   exports["render"] = render;
 })(PS["Screens.MealView"] = PS["Screens.MealView"] || {});
@@ -7732,7 +8519,7 @@ var PS = {};
           var back = Data_Function_Eff.mkEffFn1(function (v) {
               return Routes.replace(nav)(Routes.MenuAdmin.create(Meals_Slots.prevWeek(w)));
           });
-          return ReactNative_Components_View.view_([ Components_Header.header(nav), Components_Container.container([ Components_Calendar.calendarNav(nav)(back)(next)(currentText), React.createElement(Components_Calendar.calendar(loadMeals(w))(nav))(Data_Unit.unit)([  ]) ]) ]);
+          return ReactNative_Components_View.view_([ Components_Header.header(nav), Components_Container.container([ Components_Calendar.calendarNav(nav)(back)(next)(currentText), React.createElement(Components_Calendar.calendar(new Components_Calendar.CalendarMenuArgs(w))(loadMeals(w))(nav))(Data_Unit.unit)([  ]) ]) ]);
       };
   };
   exports["render"] = render;
@@ -7814,7 +8601,7 @@ var PS = {};
   };
   var loadMeal = function (slot) {
       return function (ctx) {
-          return Data_Database.getMealForSlot(slot)(function (maybeMeal) {
+          return Data_Database.findMealForSlot(slot)(function (maybeMeal) {
               return function __do() {
                   React.writeState(ctx)(maybeMeal)();
                   return Data_Unit.unit;
@@ -7973,20 +8760,26 @@ var PS = {};
   "use strict";
   var Prelude = PS["Prelude"];
   var Control_Monad_Eff = PS["Control.Monad.Eff"];
-  var Dates = PS["Dates"];
   var React = PS["React"];
   var ReactNative_API = PS["ReactNative.API"];
   var ReactNative_Components_Navigator = PS["ReactNative.Components.Navigator"];
   var Routes = PS["Routes"];
   var Screens_CalendarView = PS["Screens.CalendarView"];
+  var Screens_Display = PS["Screens.Display"];
+  var Screens_Home = PS["Screens.Home"];
   var Screens_MealView = PS["Screens.MealView"];
   var Screens_MenuAdmin = PS["Screens.MenuAdmin"];
   var Screens_SelectMeal = PS["Screens.SelectMeal"];
   var Screens_TakePhoto = PS["Screens.TakePhoto"];
-  var Control_Bind = PS["Control.Bind"];
   var Data_Function = PS["Data.Function"];
   var Control_Applicative = PS["Control.Applicative"];        
   var routeMapper = function (v) {
+      if (v instanceof Routes.Home) {
+          return Screens_Home.render;
+      };
+      if (v instanceof Routes.Display) {
+          return Screens_Display.render(v.value0)(v.value1);
+      };
       if (v instanceof Routes.MenuAdmin) {
           return Screens_MenuAdmin.render(v.value0);
       };
@@ -8002,23 +8795,20 @@ var PS = {};
       if (v instanceof Routes.TakePhoto) {
           return Screens_TakePhoto.render(v.value0);
       };
-      throw new Error("Failed pattern match at Main line 17, column 1 - line 17, column 57: " + [ v.constructor.name ]);
+      throw new Error("Failed pattern match at Main line 18, column 1 - line 18, column 31: " + [ v.constructor.name ]);
   };
   var app = (function () {
       var render = function (ctx) {
-          return function __do() {
-              var v = Dates.currentDate();
-              return ReactNative_Components_Navigator["navigator'"](function (v1) {
-                  var $11 = {};
-                  for (var $12 in v1) {
-                      if ({}.hasOwnProperty.call(v1, $12)) {
-                          $11[$12] = v1[$12];
-                      };
+          return Control_Applicative.pure(Control_Monad_Eff.applicativeEff)(ReactNative_Components_Navigator["navigator'"](function (v) {
+              var $11 = {};
+              for (var $12 in v) {
+                  if ({}.hasOwnProperty.call(v, $12)) {
+                      $11[$12] = v[$12];
                   };
-                  $11.configureScene = ReactNative_Components_Navigator.sceneConfig(ReactNative_Components_Navigator.sceneConfigs.fadeAndroid);
-                  return $11;
-              })(new Routes.CalendarView(v))(ReactNative_Components_Navigator.sceneRenderer(routeMapper));
-          };
+              };
+              $11.configureScene = ReactNative_Components_Navigator.sceneConfig(ReactNative_Components_Navigator.sceneConfigs.fadeAndroid);
+              return $11;
+          })(Routes.Home.value)(ReactNative_Components_Navigator.sceneRenderer(routeMapper)));
       };
       return React.createClass(React["spec'"](function (v) {
           return Control_Applicative.pure(Control_Monad_Eff.applicativeEff)(true);

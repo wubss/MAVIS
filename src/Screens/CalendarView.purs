@@ -1,10 +1,11 @@
 module Screens.CalendarView where
 
 import Prelude
-import Components.Calendar (calendar, calendarNav)
+import Components.Calendar (CalendarArgs(..), calendar, calendarNav)
 import Components.Container (container)
 import Components.Header (header)
 import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Console (logShow)
 import Data.Database (findMealsForCalendarWeek)
 import Data.Date (Date)
 import Data.Function.Eff (mkEffFn1)
@@ -22,7 +23,7 @@ render d nav = view_ [
       header nav,
       container [
         calendarNav nav back next currentText,
-        createElement (calendar (loadMeals d) nav) unit []
+        createElement (calendar (CalendarDateArgs d) (loadMeals d) nav) unit []
       ]
     ]
     where back = mkEffFn1 $ \_ -> replace nav (CalendarView $ prevWeekStart d)

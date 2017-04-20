@@ -2,7 +2,7 @@ module Components.Header where
 
 import Prelude
 import Data.Function.Eff (mkEffFn1)
-import Dates (currentDate)
+import Dates (latestMonday)
 import Meals.Slots (weekNo)
 import React (ReactElement)
 import ReactNative.Components.Navigator (Navigator)
@@ -10,7 +10,7 @@ import ReactNative.Components.Text (text_)
 import ReactNative.Components.Touchable (touchableHighlight')
 import ReactNative.Components.View (view)
 import ReactNative.PropTypes.Color (rgbi)
-import ReactNative.Styles (backgroundColor, padding, paddingVertical, styles)
+import ReactNative.Styles (backgroundColor, padding, styles)
 import ReactNative.Styles.Flex (alignItems, flexDirection, flexStart, row)
 import Routes (Route(..), replace)
 
@@ -19,6 +19,7 @@ header nav = view headerStyles [
     view logoStyles [
       text_ "MAVIS"
     ],
+    touchableHighlight' _{style = buttonStyles, onPress = navigateTo Home} (text_ "Home"),
     touchableHighlight' _{style = buttonStyles, onPress = navigateTo (MenuAdmin (weekNo 1))} (text_ "Menu"),
     touchableHighlight' _{style = buttonStyles, onPress = toCalendar} (text_ "Calendar")
   ]
@@ -36,5 +37,5 @@ header nav = view headerStyles [
         ]
         navigateTo dest = mkEffFn1 \_ -> replace nav dest
         toCalendar = mkEffFn1 \_ -> do
-          date <- currentDate
+          date <- latestMonday
           replace nav (CalendarView date)

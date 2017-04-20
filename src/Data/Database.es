@@ -11,42 +11,6 @@ const successCB = () => {
 const openCB = () => {
   console.log("Database OPENED");
 }
-//
-// exports.getMealsImpl = function() {
-//   console.log('get meals impl');
-//   return function() {
-//     console.log('returning get meals function');
-//     const db = SQLite.openDatabase({name : "testDB", createFromLocation : "~/www/mavis.sqlite"}, openCB, errorCB);
-//     db.transaction((tx) => {
-//       tx.executeSql('SELECT * FROM meals', [], (tx, results) => {
-//           console.log("Query completed");
-//
-//           var len = results.rows.length;
-//           for (let i = 0; i < len; i++) {
-//             let row = results.rows.item(i);
-//             console.log(`Meal: ${row.id}, name is: ${row.name}, Desc: ${row.description}`);
-//           }
-//         });
-//     }, (err) => {
-//       console.log("omg", err);
-//     });
-//   }
-// }
-//
-// exports.saveMealImpl = (mealName, mealDescription) => {
-//   console.log('save meal impl');
-//   console.log('Meal name', mealName);
-//   console.log('Meal desc', mealDescription);
-//   return function() {
-//     console.log('returning save meals function');
-//     const db = SQLite.openDatabase({name : "testDB", createFromLocation : "~/www/mavis.sqlite"}, openCB, errorCB);
-//     db.transaction((tx) => {
-//       tx.executeSql('INSERT INTO meals (name, description) VALUES (?, ?)', [mealName, mealDescription], (tx, results) => {
-//           console.log("Query completed");
-//         });
-//     });
-//   }
-// }
 
 const normaliseResults = (results) => {
   var out = [];

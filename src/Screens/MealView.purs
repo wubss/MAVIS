@@ -2,29 +2,29 @@ module Screens.MealView where
 
 import Prelude
 import Alerts.Alerts (alertWithButtons)
+import Components.Audio (audioClass)
 import Checkbox (checkbox)
 import Components.Container (container)
+import Components.Header (header)
 import Components.MealDetails (editStyles, mealPhoto)
 import Components.TextField (textField)
-import Components.Header (header)
 import Control.Monad.Eff (Eff)
-import Data.Argonaut (encodeJson)
-import Data.Database (SqlValue(..), executeSql, executeSql', insertMeal, upsertMeal)
+import Data.Database (upsertMeal)
 import Data.Date (Date)
-import Data.DateTime (DateTime)
 import Data.Either (Either(..))
 import Data.Function.Eff (mkEffFn1)
-import Data.Maybe (Maybe(..), fromJust)
-import Meals.Meals (Meal(..), MealType(..), allAllergens, hasAllergen, mealId, mealValid, setDescription, setName, unMeal, updateAllergen)
-import Partial.Unsafe (unsafePartial)
+import Data.Maybe (Maybe(Nothing, Just))
+import Data.Nullable (toNullable)
+import Meals.Meals (Meal(Meal), MealType(Meat, Vegetarian), allAllergens, hasAllergen, mealId, mealValid, setAudioPath, setDescription, setName, unMeal, updateAllergen)
 import React (ReactClass, ReactElement, ReactState, ReactThis, Read, Write, createClass, createElement, readState, spec, transformState)
 import ReactNative.Components.Button (button')
 import ReactNative.Components.Navigator (Navigator, pop)
 import ReactNative.Components.Text (text', text_)
 import ReactNative.Components.View (view, view_)
+import ReactNative.PropTypes (center)
 import ReactNative.PropTypes.Color (gray, rgbi)
-import ReactNative.Styles (flex, marginBottom, marginHorizontal, marginLeft, styles, width)
-import ReactNative.Styles.Flex (flexDirection, flexEnd, flexWrap, justifyContent, row, wrap)
+import ReactNative.Styles (borderColor, borderWidth, flex, marginBottom, marginHorizontal, marginLeft, marginTop, styles, width)
+import ReactNative.Styles.Flex (alignItems, column, flexDirection, flexEnd, flexWrap, justifyContent, row, spaceAround, wrap)
 import Routes (Route(..), replace)
 
 validateNotEmpty :: String -> Either String String
@@ -64,7 +64,7 @@ mealDetail meal nav = createClass (spec {meal: meal, hasChanged: false} r)
         ],
         view columnStyles [
           mealPhoto state.meal editStyles (onPressMealPhoto state.meal),
-          text' _ {onPress = mkEffFn1 (\_ -> replace nav (TakePhoto state.meal))} "Add audio",
+          mealAudio state.meal ctx,
           view buttonContainerStyles [
             view buttonViewStyles [
               button' _ {color = gray, onPress = mkEffFn1 (confirmCancel state.hasChanged)} "Cancel"
@@ -125,3 +125,15 @@ allergenCheckboxes :: Meal -> ReactThis Unit MealViewState -> ReactElement
 allergenCheckboxes meal ctx = view_ $ map el allAllergens
   where el name = checkbox _{onChange = mkEffFn1 (onChangeAllergen name), checked = hasAllergen name meal} name
         onChangeAllergen name checked = transformState ctx $ \st -> st {meal = updateAllergen checked name st.meal}
+
+mealAudio :: Meal -> ReactThis Unit MealViewState -> ReactElement
+mealAudio meal@(Meal m) ctx = view audioContainerStyles [
+  createElement audioClass {onRecorded: mkEffFn1 audioTaken, audioPath: toNullable m.audioPath } []
+]
+  where audioContainerStyles = styles [
+          flex 1,
+          marginTop 20,
+          borderColor $ rgbi 0xCCCCCC,
+          borderWidth 1
+        ]
+        audioTaken path = transformState ctx \state -> state {meal = setAudioPath path meal}

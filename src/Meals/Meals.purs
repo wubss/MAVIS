@@ -27,7 +27,7 @@ stringToMealType "Vegetarian" = Just Vegetarian
 stringToMealType "Meat" = Just Meat
 stringToMealType _ = Nothing
 
-type MealData = {id :: Maybe Int, name :: String, description :: String, allergens :: Array String, photoPath :: Maybe String}
+type MealData = {id :: Maybe Int, name :: String, description :: String, allergens :: Array String, photoPath :: Maybe String, audioPath :: Maybe String}
 
 newtype Meal = Meal MealData
 
@@ -43,7 +43,7 @@ instance showMealTime :: Show MealTime where
   show Dinner = "Dinner"
 
 blankMeal :: Meal
-blankMeal = Meal {id: Nothing, name: "", description: "", allergens: [], photoPath: Nothing}
+blankMeal = Meal {id: Nothing, name: "", description: "", allergens: [], photoPath: Nothing, audioPath: Nothing}
 
 -- instance encodeMeal :: EncodeJson Meal where
 --   encodeJson (Meal meal)
@@ -76,6 +76,9 @@ spacesToHyphens s = replaceAll (Pattern " ") (Replacement "-") s
 
 setPhotoPath :: String -> Meal -> Meal
 setPhotoPath path (Meal m) = Meal m {photoPath = Just path}
+
+setAudioPath :: String -> Meal -> Meal
+setAudioPath path (Meal m) = Meal m {audioPath = Just path}
 
 setName :: String -> Meal -> Meal
 setName n (Meal m) = Meal m {name = n}

@@ -13,7 +13,7 @@ type IconProps = {
   size :: Int,
   name :: String,
   color :: Color,
-  styles :: Styles
+  style :: Styles
 }
 
 icon :: Prop IconProps -> ReactElement

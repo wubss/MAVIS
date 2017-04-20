@@ -12,42 +12,6 @@ var openCB=function openCB(){
 console.log("Database OPENED");
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var normaliseResults=function normaliseResults(results){
 var out=[];
 var len=results.rows.length;
