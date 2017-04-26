@@ -1,4 +1,4 @@
-module Components.Audio (audioClass, playback) where
+module Components.Audio (audioClass, playback, playSound) where
 
 import Prelude
 import Components.Icon (icon)
@@ -18,9 +18,6 @@ import ReactNative.Styles.Text (textAlign)
 foreign import audioClass :: forall props. ReactClass props
 
 foreign import playSound :: forall eff. String -> EventHandler eff Unit -> Eff eff Unit
--- foreign import playSound :: forall eff. Fn2 String (EventHandler eff Unit) (Eff eff Unit)
---
--- playSound' = runFn2 playSound
 
 playback :: Meal -> ReactClass Unit
 playback meal @(Meal m) = createClass (spec false r)

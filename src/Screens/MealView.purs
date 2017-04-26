@@ -2,12 +2,14 @@ module Screens.MealView where
 
 import Prelude
 import Alerts.Alerts (alertWithButtons)
-import Components.Audio (audioClass)
 import Checkbox (checkbox)
+import Components.Audio (audioClass)
 import Components.Container (container)
 import Components.Header (header)
+import Components.ImagePicker (galleryPicker)
 import Components.MealDetails (editStyles, mealPhoto)
 import Components.TextField (textField)
+import Components.Title (title)
 import Control.Monad.Eff (Eff)
 import Data.Database (upsertMeal)
 import Data.Date (Date)
@@ -15,7 +17,7 @@ import Data.Either (Either(..))
 import Data.Function.Eff (mkEffFn1)
 import Data.Maybe (Maybe(Nothing, Just))
 import Data.Nullable (toNullable)
-import Meals.Meals (Meal(Meal), MealType(Meat, Vegetarian), allAllergens, hasAllergen, mealId, mealValid, setAudioPath, setDescription, setName, unMeal, updateAllergen)
+import Meals.Meals (Meal(Meal), MealType(Meat, Vegetarian), allAllergens, hasAllergen, mealId, mealValid, setAudioPath, setDescription, setName, setPhotoPath, unMeal, updateAllergen)
 import React (ReactClass, ReactElement, ReactState, ReactThis, Read, Write, createClass, createElement, readState, spec, transformState)
 import ReactNative.Components.Button (button')
 import ReactNative.Components.Navigator (Navigator, pop)
@@ -38,7 +40,7 @@ render meal@(Meal m) nav = view_ [
       view_ [
         header nav,
         container [
-          text_ m.name
+          title "Meal details"
         ],
         createElement (mealDetail meal nav) unit []
       ]
@@ -80,7 +82,10 @@ mealDetail meal nav = createClass (spec {meal: meal, hasChanged: false} r)
                 upsertMeal meal
                 pop nav
 
-              onPressMealPhoto m = mkEffFn1 $ \_ -> replace nav (TakePhoto m)
+              onPressMealPhoto m = mkEffFn1 $ \_ -> do
+                galleryPicker $ \filePath -> do
+                  transformState ctx $ \state -> state {meal = setPhotoPath filePath state.meal}
+                  pure unit --need to set the file path here to the meal - @todo
 
               confirmCancel :: forall e. Boolean -> _ -> Eff _ Unit
               confirmCancel true _ = do

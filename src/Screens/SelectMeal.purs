@@ -1,10 +1,12 @@
 module Screens.SelectMeal (render) where
 
 import Prelude
+import Colours (buttonAlternative, buttonPrimary, grayLine)
 import Components.Container (container)
-import Components.MealDetails (mealDetails, selectStyles)
-import Components.Picker (picker, pickerItem)
 import Components.Header (header)
+import Components.MealDetails (editStyles, mealDetails, selectStyles)
+import Components.Picker (picker, picker', pickerItem)
+import Components.Title (title)
 import Control.Monad.Eff (Eff)
 import Data.Database (fetchMeal, findMealForSlot, loadAllMeals, updateSlot)
 import Data.Function.Eff (mkEffFn1, mkEffFn2)
@@ -17,7 +19,7 @@ import ReactNative.Components.Navigator (Navigator, pop, push)
 import ReactNative.Components.Text (text_)
 import ReactNative.Components.View (view, view_)
 import ReactNative.PropTypes.Color (gray, rgbi)
-import ReactNative.Styles (marginLeft, styles, width)
+import ReactNative.Styles (borderColor, borderWidth, flex, marginHorizontal, marginLeft, marginTop, padding, styles, width)
 import ReactNative.Styles.Flex (flexDirection, flexEnd, flexWrap, justifyContent, row, wrap)
 import Routes (Route(..))
 
@@ -25,13 +27,10 @@ render :: Slot -> Navigator Route -> ReactElement
 render slot@(Slot s) nav = view_ [
       header nav,
       container [
-          text_ $ showSlotDate s.date,
-          text_ $ "Lunch: " <> mealTypePhrase s.mealType,
+          title $ show s.mealType <> " " <> show s.mealTime <> " on " <> showSlotDate s.date,
           createElement (selectMeal nav slot) unit []
       ]
     ]
-  where  mealTypePhrase Vegetarian = "vegetarian meal"
-         mealTypePhrase Meat = "meat meal"
 
 loadMeals :: ReactThis Unit (Array Meal) -> Eff _ Unit
 loadMeals ctx = do
@@ -45,11 +44,10 @@ selectMeal nav slot = createClass (spec [] r) {componentDidMount = loadMeals}
             meals <- readState ctx
             pure $ createElement (mealSelector nav slot meals) unit []
 
-mealDetailsContainer :: Navigator Route -> Maybe Meal -> ReactElement
-mealDetailsContainer nav (Just meal) = view_ [
-    mealDetails meal selectStyles,
-    button' _ {onPress = mkEffFn1 $ \_ -> push nav (MealView meal)} "Edit meal details"
-  ]
+-- mealDetailsContainer :: Navigator Route -> Maybe Meal -> ReactElement
+-- mealDetailsContainer nav (Just meal) = view_ [
+--     mealDetails meal selectStyles
+--   ]
 
 mealDetailsContainer _ Nothing = view_ []
 
@@ -62,17 +60,29 @@ mealSelector :: Navigator Route -> Slot -> Array Meal -> ReactClass Unit
 mealSelector nav slot meals = createClass (spec Nothing r) {componentDidMount = loadMeal slot}
   where r ctx = do
           maybeMeal <- readState ctx
-          pure $ view_ [
-            text_ "Choose a meal to be served at this mealtime.  If the meal is not in the list of saved meals below, add a new meal by pressing the \"New meal\" button.",
-            button' _ {onPress = mkEffFn1 $ \_ -> push nav (MealView blankMeal)} "New meal",
-            picker (selectedMeal maybeMeal) handler (options meals),
-            mealDetailsContainer nav maybeMeal,
-            view buttonContainerStyles [
-              view buttonViewStyles [
-                button' _ {color = gray, onPress = mkEffFn1 $ \_ -> pop nav} "Cancel"
-              ],
-              view buttonViewStyles [
-                button' _ {onPress = mkEffFn1 \_ -> setMeal maybeMeal slot nav, disabled = isNothing maybeMeal, color = rgbi 0xE38815} "Save"
+          pure $ view containerStyles [
+            view columnStyles [
+              text_ "Choose an existing saved meal",
+              picker' _{selectedValue = (selectedMeal maybeMeal), onValueChange = handler, style = pickerStyles} (options meals),
+              -- mealDetailsContainer nav maybeMeal,
+              view buttonContainerStyles $ [
+                view buttonStyles [
+                  button' _ {color = gray, onPress = mkEffFn1 $ \_ -> pop nav} "Cancel"
+                ]
+              ]
+              <>
+              editButtonArray maybeMeal
+              <>
+              [
+                view buttonStyles [
+                  button' _ {onPress = mkEffFn1 \_ -> setMeal maybeMeal slot nav, disabled = isNothing maybeMeal, color = rgbi 0xE38815} "Set meal"
+                ]
+              ]
+            ],
+            view (styles [flex 1]) [
+              text_ "Or create a new meal",
+              view newMealButtonStyles [
+                button' _ {color = buttonAlternative, onPress = mkEffFn1 $ \_ -> push nav (MealView blankMeal)} "New meal"
               ]
             ]
           ]
@@ -95,13 +105,40 @@ mealSelector nav slot meals = createClass (spec Nothing r) {componentDidMount = 
                     flexWrap wrap
                   ]
 
-                  buttonViewStyles = styles [
-                    marginLeft 20,
-                    width 100
+                  columnStyles = styles [
+                    flex 2,
+                    marginHorizontal 15
                   ]
+
+                  newMealButtonStyles = styles [
+                    width 100,
+                    marginTop 10
+                  ]
+
+                  containerStyles = styles [
+                    flexDirection row,
+                    flexWrap wrap
+                  ]
+
+                  buttonStyles = styles [
+                    marginLeft 10
+                  ]
+                  editButtonArray maybeMeal = case maybeMeal of
+                    Nothing -> []
+                    (Just meal) -> [
+                      view buttonStyles [
+                        button' _ {color = gray, onPress = mkEffFn1 $ \_ -> push nav (MealView meal)} "Edit meal details"
+                      ]
+                    ]
 
 setMeal :: Maybe Meal -> Slot -> Navigator Route -> Eff _ Unit
 setMeal Nothing _ _ = pure unit
 setMeal (Just meal) slot nav = do
   updateSlot slot (mealId meal)
   pop nav
+
+pickerStyles = styles [
+  borderWidth 1,
+  borderColor grayLine,
+  padding 5
+]

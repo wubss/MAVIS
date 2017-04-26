@@ -27,13 +27,13 @@ header nav = view headerStyles [
           flexDirection row,
           alignItems flexStart,
           backgroundColor $ rgbi 0xebc33a,
-          padding 15
+          padding 10
         ]
         logoStyles = styles [
-          padding 15
+          padding 10
         ]
         buttonStyles = styles [
-          padding 15
+          padding 10
         ]
         navigateTo dest = mkEffFn1 \_ -> replace nav dest
         toCalendar = mkEffFn1 \_ -> do

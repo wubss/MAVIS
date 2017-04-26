@@ -22,10 +22,10 @@ type CheckboxProps eff = {
   }
 
 checkedIcon :: ReactElement
-checkedIcon = icon _ {size = 24, name = "check-square-o", color = rgbi 0xe9e9e9}
+checkedIcon = icon _ {size = 24, name = "check-square-o"}
 
 uncheckedIcon :: ReactElement
-uncheckedIcon = icon _ {size = 24, name = "square-o", color = rgbi 0xe9e9e9}
+uncheckedIcon = icon _ {size = 24, name = "square-o"}
 
 checkbox :: Prop (CheckboxProps _) -> String -> ReactElement
 checkbox props label = createElement checkboxClass (unsafeApplyProps {label: label} props) []

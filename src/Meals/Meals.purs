@@ -6,13 +6,19 @@ import Data.Array (elem, filter, (:))
 import Data.DateTime (DateTime, Weekday)
 import Data.Either (Either)
 import Data.Maybe (Maybe(..), fromJust, isJust)
+import Data.Ord (class Ord, Ordering(..), compare)
 import Data.String (Pattern(..), Replacement(..), null, replaceAll)
 import Dates (addDays, unsafeFormatDateTime)
 import Partial.Unsafe (unsafePartial)
 import Text.Parsing.Parser.String (class StringLike)
 
-data MealTime = Lunch | Dinner
+data MealTime = Dinner | Lunch
 derive instance eqMealTime :: Eq MealTime
+
+instance ordMealTime :: Ord MealTime where
+  compare Lunch Dinner = LT
+  compare Dinner Lunch = GT
+  compare _ _ = EQ
 
 data MealType = Vegetarian | Meat
 derive instance eqMealType :: Eq MealType
@@ -45,28 +51,10 @@ instance showMealTime :: Show MealTime where
 blankMeal :: Meal
 blankMeal = Meal {id: Nothing, name: "", description: "", allergens: [], photoPath: Nothing, audioPath: Nothing}
 
--- instance encodeMeal :: EncodeJson Meal where
---   encodeJson (Meal meal)
---     = "name" := meal.name
---     ~> "description" := meal.description
---     ~> "photoPath" := meal.photoPath
---     ~> "allergens" := meal.allergens
---     ~> jsonEmptyObject
---
--- instance decodeMeal :: DecodeJson Meal where
---   decodeJson json = do
---     obj <- decodeJson json
---     name <- obj .? "name"
---     description <- obj .? "description"
---     photoPath <- obj .? "photoPath"
---     allergens <- obj .? "allergens"
---     pure $ Meal {name: name, description: description, allergens: allergens, photoPath: photoPath}
+type MealPair = {veg :: Meal, meat :: Meal}
 
 instance showMeal :: Show Meal where
   show (Meal m) = show m.id <> ": " <> m.name
---
--- mealStorageKey :: DateTime -> MealType -> MealTime -> String
--- mealStorageKey dt mealType mealTime = (unsafeFormatDateTime "%Y-%m-%d-" dt) <> show mealType <> show mealTime
 
 mealId :: Meal -> Int
 mealId (Meal m) = unsafePartial $ fromJust m.id
@@ -102,3 +90,11 @@ allAllergens = [
 
 mealValid :: Meal -> Boolean
 mealValid (Meal m) = not null m.name && isJust m.photoPath
+
+toggleMealTime :: MealTime -> MealTime
+toggleMealTime Lunch = Dinner
+toggleMealTime Dinner = Lunch
+
+toggleMealType :: MealType -> MealType
+toggleMealType Vegetarian = Meat
+toggleMealType Meat = Vegetarian

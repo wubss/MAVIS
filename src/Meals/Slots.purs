@@ -2,11 +2,11 @@ module Meals.Slots where
 
 import Prelude
 import Data.Date (Date, weekday)
-import Data.DateTime (DateTime, Time(Time), Weekday, date)
+import Data.DateTime (Time(Time), Weekday)
 import Data.Either (Either)
 import Data.Enum (fromEnum, toEnum)
 import Data.Maybe (Maybe(..), fromJust)
-import Dates (addDays, unsafeFormatDateTime)
+import Dates (addDays, showDate)
 import Meals.Meals (MealTime(..), MealType(..))
 import Partial.Unsafe (unsafePartial)
 import Utils (maybeToEither)
@@ -25,7 +25,7 @@ instance showSlot :: Show Slot where
 
 showSlotDate :: SlotDate -> String
 showSlotDate (MenuSlotDate day week) = show day <> "-" <> showWeekNo week
-showSlotDate (MealSlotDate dt) = unsafeFormatDateTime "%Y-%m-%d" dt
+showSlotDate (MealSlotDate dt) = showDate dt
 
 instance sSlotDate :: Show SlotDate where
   show = showSlotDate
@@ -41,6 +41,9 @@ slotDateWeekNo _ = Nothing
 slotDateDate :: SlotDate -> Maybe Date
 slotDateDate (MealSlotDate d) = Just d
 slotDateDate _ = Nothing
+
+slotMealTime :: Slot -> MealTime
+slotMealTime (Slot {mealTime}) = mealTime
 
 weekNoFromDate :: Date -> WeekNo
 weekNoFromDate dt = weekNo 1
@@ -71,19 +74,11 @@ mealSlotDateToMenuSlotDate d wn slotDate = do
   date <- maybeToEither "Date not valid" (slotDateDate slotDate)
   pure $ MenuSlotDate (weekday date) wn
 
-nextSlot :: DateTime -> Slot
-nextSlot dt = Slot {date: MealSlotDate (date dt), mealType: Vegetarian, mealTime: Lunch}
+nextSlot :: Date -> MealTime -> MealType -> Slot
+nextSlot date mealTime mealType = Slot {date: MealSlotDate date, mealType, mealTime}
 
 lunchTime :: Time
 lunchTime = unsafePartial $ fromJust $ Time <$> toEnum 14 <*> toEnum 0 <*> toEnum 0 <*> toEnum 0
 
 nextMealTime :: Time -> MealTime
 nextMealTime time = if time > lunchTime then Dinner else Lunch
-
-toggleMealType :: Slot -> Slot
-toggleMealType (Slot slotData@{mealType: Vegetarian}) = Slot slotData {mealType = Meat}
-toggleMealType (Slot slotData@{mealType: Meat}) = Slot slotData {mealType = Vegetarian}
-
-toggleMealTime :: Slot -> Slot
-toggleMealTime (Slot slotData@{mealTime: Lunch}) = Slot slotData {mealTime = Dinner}
-toggleMealTime (Slot slotData@{mealTime: Dinner}) = Slot slotData {mealTime = Lunch}

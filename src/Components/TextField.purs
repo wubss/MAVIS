@@ -46,7 +46,10 @@ onSubmit ctx = mkEffFn1 $ \_ -> do
   runEffFn1 props.onChange state.value
 
 onChange :: ReactThis (TextFieldProps _) TextFieldState -> EventHandler _ String
-onChange ctx = mkEffFn1 $ \text -> transformState ctx \state -> state {value = text}
+onChange ctx = mkEffFn1 $ \text -> do
+  transformState ctx \state -> state {value = text}
+  props <- getProps ctx
+  runEffFn1 props.onChange text
 
 textInputStyle :: Styles
 textInputStyle = styles [

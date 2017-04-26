@@ -1,13 +1,15 @@
 module Screens.Home where
 
 import Prelude
+import Colours (buttonPrimary)
 import Control.Monad.Eff.Console (log, logShow)
 import Data.Database (findMealForSlot)
+import Data.DateTime (date, time)
 import Data.Function.Eff (mkEffFn1)
 import Data.Maybe (Maybe(..))
 import Dates (currentDateTime)
-import Meals.Meals (Meal(..))
-import Meals.Slots (nextSlot)
+import Meals.Meals (Meal(..), MealType(..))
+import Meals.Slots (nextMealTime, nextSlot, slotMealTime)
 import React (ReactClass, ReactElement, createClass, createElement, readState, spec, writeState)
 import ReactNative.Components.Button (button')
 import ReactNative.Components.Navigator (Navigator)
@@ -15,10 +17,10 @@ import ReactNative.Components.Text (text)
 import ReactNative.Components.View (view, view_)
 import ReactNative.PropTypes (center)
 import ReactNative.PropTypes.Color (red, rgbi)
-import ReactNative.Styles (marginTop, marginVertical, paddingTop, styles)
+import ReactNative.Styles (marginRight, marginTop, marginVertical, paddingTop, styles)
 import ReactNative.Styles.Flex (alignItems, column, flexDirection, justifyContent, row, spaceAround, spaceBetween)
 import ReactNative.Styles.Text (color, fontSize)
-import Routes (Route(..), goToAdmin, replace)
+import Routes (Route(..), goToAdmin, goToDisplay, replace)
 
 render :: Navigator Route -> ReactElement
 render nav = createElement (homeClass nav) unit []
@@ -31,17 +33,20 @@ homeClass nav = createClass (spec Nothing r)
             text titleTextStyles "MAVIS",
             errorMessage maybeError,
             view buttonContainerStyles [
-              button' _{color = rgbi 0xE38815, onPress = goToFrontEnd} "Display mode",
+              view (styles [marginRight 20]) [
+                button' _{color = buttonPrimary, onPress = goToFrontEnd} "Display mode"
+              ],
               button' _{onPress = goToAdmin nav} "Admin mode"
             ]
           ]
             where goToFrontEnd = mkEffFn1 \_ -> do
-                    slot <- nextSlot <$> currentDateTime
-                    findMealForSlot slot $ \maybe -> case maybe of
-                      Nothing -> do
-                        writeState ctx (Just "The next meal has not been set!  Please enter admin mode and set the meals for today.")
-                        pure unit
-                      Just meal -> replace nav (Display slot meal)
+                    dt <- currentDateTime
+                    goToDisplay nav (date dt) (nextMealTime (time dt)) handleMaybeMeal
+
+                  handleMaybeMeal cb Nothing = do
+                      writeState ctx (Just "The next meal has not been set!  Please enter admin mode and set the meals for today.")
+                      pure unit
+                  handleMaybeMeal cb (Just meal) = cb meal
 
                   containerStyles = styles [
                     flexDirection column,

@@ -41,8 +41,8 @@ placeholderStyles = [
 editStyles :: MealPhotoStyles
 editStyles = {
   imageStyles: styles [
-    resizeMode cover,
-    flex 1
+    resizeMode contain,
+    height 200
   ],
   placeholderStyles: styles $ placeholderStyles <> [flex 1],
   touchableStyles: styles [flex 1]

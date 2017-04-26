@@ -199,8 +199,6 @@ _react2.default.createElement(_FontAwesome2.default,{name:'play-circle',size:48,
 
 
 var styles=_reactNative.StyleSheet.create({
-container:{
-flex:1},
 
 controls:{
 flexDirection:'row',

@@ -199,9 +199,7 @@ class AudioExample extends Component {
   }
 
   var styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
+
     controls: {
       flexDirection: 'row',
       justifyContent: 'center',

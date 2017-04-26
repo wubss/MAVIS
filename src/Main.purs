@@ -16,7 +16,7 @@ import Screens.TakePhoto (render) as TakePhoto
 
 routeMapper :: Route -> Navigator Route -> ReactElement
 routeMapper Home = Home.render
-routeMapper (Display slot meal) = Display.render slot meal
+routeMapper (Display date mealTime mealPair) = Display.render date mealTime mealPair
 routeMapper (MenuAdmin weekNo) = MenuAdmin.render weekNo
 routeMapper (MealView args) = MealView.render args
 routeMapper (CalendarView dt) = CalendarView.render dt
